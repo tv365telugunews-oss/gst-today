@@ -44,14 +44,15 @@ export default function WelcomeScreen() {
           </h1>
         </div>
 
-        {/* Logo */}
+        {/* Logo - Fixed Horizontal Alignment */}
         <div className="animate-fade-in" style={{ animationDelay: '0.3s' }}>
           <h2 
-            className="text-5xl font-black uppercase transform -rotate-2"
+            className="text-5xl font-black uppercase"
             style={{
               color: '#E53935',
               textShadow: '3px 3px 0px rgba(0, 0, 0, 0.1), 6px 6px 0px rgba(229, 57, 53, 0.2)',
               letterSpacing: '2px',
+              transform: 'rotate(0deg)', // Changed from -2 to 0 for horizontal alignment
             }}
           >
             GST TODAY TV

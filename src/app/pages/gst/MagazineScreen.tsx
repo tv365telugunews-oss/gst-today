@@ -1,5 +1,13 @@
-import { useState } from 'react';
-import { ChevronLeft, ChevronRight, BookOpen, X, Maximize } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { 
+  X, BookOpen, ChevronLeft, ChevronRight, ZoomIn, ZoomOut, 
+  Menu, Search, Bookmark, Settings, Home, Moon, Sun,
+  Grid, List, BookmarkCheck
+} from 'lucide-react';
+
+// Import cover and book images
+import coverImage from "@/assets/39.png";
+import openBookImage from '40.png';
 
 const magazinePages = [
   {
@@ -7,89 +15,118 @@ const magazinePages = [
     title: 'GST TODAY Magazine',
     subtitle: 'February 2026 Edition',
     content: 'Your Complete Guide to GST Updates, News, and Compliance',
-    image: 'https://images.unsplash.com/photo-1554224311-beee460c201f?w=600&h=800&fit=crop',
+    image: coverImage,
     type: 'cover',
+    thumbnail: 'https://images.unsplash.com/photo-1554224311-beee460c201f?w=150&h=200&fit=crop',
   },
   {
     id: 2,
     title: 'Editor\'s Note',
-    content: 'Welcome to the February 2026 edition of GST TODAY Magazine. This month, we bring you comprehensive coverage of the latest GST Council decisions, important compliance updates, and expert insights on upcoming changes in the GST regime. Our team has worked diligently to provide you with actionable information that will help your business stay compliant and make informed decisions.',
-    image: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=600&h=800&fit=crop',
+    content: 'Welcome to the February 2026 edition of GST TODAY Magazine. This month, we bring you comprehensive coverage of the latest GST Council decisions, important compliance updates, and expert insights on upcoming changes in the GST regime.',
+    image: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=800&h=1000&fit=crop',
     type: 'editorial',
+    thumbnail: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=150&h=200&fit=crop',
   },
   {
     id: 3,
     title: 'GST Rate Changes for 2026',
-    content: 'The GST Council has announced significant rate changes effective from April 1, 2026. Electronics GST reduced from 18% to 12%. Textiles sector gets relief with rate cut from 12% to 5%. Healthcare services remain exempt. E-commerce operators face new compliance requirements. Real estate sector sees clarity on input tax credit. These changes are expected to boost manufacturing and provide relief to consumers.',
-    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=800&fit=crop',
+    content: 'The GST Council has announced significant rate changes effective from April 1, 2026. Electronics GST reduced from 18% to 12%. Textiles sector gets relief with rate cut from 12% to 5%.',
+    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=1000&fit=crop',
     type: 'article',
+    thumbnail: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=150&h=200&fit=crop',
   },
   {
     id: 4,
     title: 'E-Invoice: Complete Guide',
-    content: 'E-invoicing is now mandatory for businesses with turnover above Rs 5 crore. This comprehensive guide covers: How to generate e-invoices, Integration with accounting software, Common errors and solutions, Benefits of e-invoicing system, Step-by-step implementation process. The government has provided extensive support through training programs and dedicated helplines to ensure smooth transition.',
-    image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&h=800&fit=crop',
+    content: 'E-invoicing is now mandatory for businesses with turnover above Rs 5 crore. This comprehensive guide covers how to generate e-invoices, integration with accounting software, and common errors.',
+    image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&h=1000&fit=crop',
     type: 'article',
+    thumbnail: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=150&h=200&fit=crop',
   },
   {
     id: 5,
     title: 'Input Tax Credit Simplified',
-    content: 'Understanding ITC is crucial for businesses. Key points: ITC can be claimed on goods and services used for business. Time limit extended to 30 November of next financial year. Blocked credit categories clearly defined. Reversal rules simplified. Documentation requirements reduced. Auto-population of ITC in returns. These changes will significantly reduce compliance burden and improve cash flow for businesses.',
-    image: 'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=600&h=800&fit=crop',
+    content: 'Understanding ITC is crucial for businesses. Key points: ITC can be claimed on goods and services used for business. Time limit extended to 30 November of next financial year.',
+    image: 'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&h=1000&fit=crop',
     type: 'article',
+    thumbnail: 'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=150&h=200&fit=crop',
   },
   {
     id: 6,
     title: 'GST Return Filing Calendar',
-    content: 'Important deadlines for Quarter 4 FY 2025-26: GSTR-1: 11th of next month, GSTR-3B: 20th of next month, GSTR-9: 31st December 2026, GSTR-9C: 31st December 2026. Special provisions for composition dealers. Late fee waiver for small taxpayers. Extension provisions during technical glitches. Plan your filing schedule to avoid penalties and ensure smooth compliance.',
-    image: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&h=800&fit=crop',
+    content: 'Important deadlines for Quarter 4 FY 2025-26: GSTR-1: 11th of next month, GSTR-3B: 20th of next month, GSTR-9: 31st December 2026.',
+    image: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&h=1000&fit=crop',
     type: 'calendar',
+    thumbnail: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=150&h=200&fit=crop',
   },
   {
     id: 7,
     title: 'Expert Interview: CA Ramesh Kumar',
-    content: 'In conversation with leading GST expert CA Ramesh Kumar. "The recent GST reforms are business-friendly and aim to reduce compliance burden. Small businesses will benefit the most from simplified procedures and reduced documentation. E-invoicing will significantly reduce tax evasion. The future of GST is digital and automated. Businesses should invest in good accounting software and training."',
-    image: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=600&h=800&fit=crop',
+    content: 'In conversation with leading GST expert CA Ramesh Kumar. "The recent GST reforms are business-friendly and aim to reduce compliance burden. Small businesses will benefit the most."',
+    image: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&h=1000&fit=crop',
     type: 'interview',
+    thumbnail: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=150&h=200&fit=crop',
   },
   {
     id: 8,
     title: 'Case Study: Manufacturing Success',
-    content: 'How XYZ Industries saved Rs 50 lakhs through proper GST planning. Challenge: Complex supply chain with multiple vendors. Solution: Implemented e-invoicing and automated ITC reconciliation. Results: 99% accuracy in returns, Zero penalties in 2 years, Improved cash flow by 30%, Reduced compliance team size. Key Learning: Investment in technology and training pays off in GST compliance.',
-    image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&h=800&fit=crop',
+    content: 'How XYZ Industries saved Rs 50 lakhs through proper GST planning. Challenge: Complex supply chain with multiple vendors. Solution: Implemented e-invoicing and automated ITC reconciliation.',
+    image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&h=1000&fit=crop',
     type: 'case-study',
-  },
-  {
-    id: 9,
-    title: 'Upcoming GST Webinars',
-    content: 'Join our expert-led webinars: March 15: E-Invoice Implementation Workshop, March 22: ITC Optimization Strategies, March 29: Annual Return Filing Tips, April 5: GST Audit Preparation. All webinars are free for GST TODAY subscribers. Get certificates of participation. Interactive Q&A sessions. Limited seats available. Register now at gsttodaytv.com',
-    image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=800&fit=crop',
-    type: 'events',
-  },
-  {
-    id: 10,
-    title: 'Contact Us',
-    content: 'GST TODAY TV - Your trusted partner in GST compliance. Email: gsttodaytv99@gmail.com, Phone: +91 9849884466, Contact: Kasturi Gopala Krishna. Website: www.gsttodaytv.com. Follow us on social media for daily updates. Subscribe to our YouTube channel for video tutorials. Download our mobile app for news on the go. Thank you for reading!',
-    image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&h=800&fit=crop',
-    type: 'contact',
+    thumbnail: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=150&h=200&fit=crop',
   },
 ];
 
+type Screen = 'library' | 'reader' | 'settings';
+
 export default function MagazineScreen() {
-  const [isReading, setIsReading] = useState(false);
+  const [currentScreen, setCurrentScreen] = useState<Screen>('library');
   const [currentPage, setCurrentPage] = useState(0);
   const [isFlipping, setIsFlipping] = useState(false);
   const [flipDirection, setFlipDirection] = useState<'next' | 'prev'>('next');
-  const [touchStartX, setTouchStartX] = useState(0);
+  const [darkMode, setDarkMode] = useState(false);
+  const [zoom, setZoom] = useState(1);
+  const [showTOC, setShowTOC] = useState(false);
+  const [showThumbnails, setShowThumbnails] = useState(true);
+  const [bookmarkedPages, setBookmarkedPages] = useState<number[]>([0]);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [touchStart, setTouchStart] = useState<{ x: number; y: number; time: number } | null>(null);
+  
+  const pageRef = useRef<HTMLDivElement>(null);
+  const totalPages = magazinePages.length;
+
+  // Page turn sound
+  const playPageTurnSound = () => {
+    try {
+      const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+      const oscillator = audioContext.createOscillator();
+      const gainNode = audioContext.createGain();
+
+      oscillator.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+
+      oscillator.frequency.value = 200;
+      oscillator.type = 'sine';
+
+      gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+
+      oscillator.start(audioContext.currentTime);
+      oscillator.stop(audioContext.currentTime + 0.5);
+    } catch (error) {
+      console.log('Audio not supported');
+    }
+  };
 
   const handleNextPage = () => {
-    if (currentPage < magazinePages.length - 1 && !isFlipping) {
+    if (currentPage < totalPages - 1 && !isFlipping) {
       setIsFlipping(true);
       setFlipDirection('next');
+      playPageTurnSound();
       setTimeout(() => {
         setCurrentPage(currentPage + 1);
         setIsFlipping(false);
-      }, 600);
+      }, 1200);
     }
   };
 
@@ -97,268 +134,786 @@ export default function MagazineScreen() {
     if (currentPage > 0 && !isFlipping) {
       setIsFlipping(true);
       setFlipDirection('prev');
+      playPageTurnSound();
       setTimeout(() => {
         setCurrentPage(currentPage - 1);
         setIsFlipping(false);
-      }, 600);
+      }, 1200);
     }
   };
 
-  const handleSwipe = (e: React.TouchEvent, type: 'start' | 'end') => {
-    if (type === 'start') {
-      setTouchStartX(e.touches[0].clientX);
-    } else {
-      const touchEndX = e.changedTouches[0].clientX;
-      const diff = touchStartX - touchEndX;
-      
-      // Minimum swipe distance: 30px
-      if (Math.abs(diff) > 30) {
-        if (diff > 0) {
-          // Swipe left - next page
-          handleNextPage();
-        } else {
-          // Swipe right - previous page
-          handlePrevPage();
-        }
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStart({
+      x: e.touches[0].clientX,
+      y: e.touches[0].clientY,
+      time: Date.now(),
+    });
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (!touchStart) return;
+
+    const touchEnd = {
+      x: e.changedTouches[0].clientX,
+      y: e.changedTouches[0].clientY,
+      time: Date.now(),
+    };
+
+    const deltaX = touchStart.x - touchEnd.x;
+    const deltaY = Math.abs(touchStart.y - touchEnd.y);
+    const deltaTime = touchEnd.time - touchStart.time;
+
+    // Swipe detection: horizontal movement > 50px, vertical < 100px, time < 500ms
+    if (Math.abs(deltaX) > 50 && deltaY < 100 && deltaTime < 500) {
+      if (deltaX > 0) {
+        handleNextPage();
+      } else {
+        handlePrevPage();
       }
-      setTouchStartX(0);
+    }
+
+    setTouchStart(null);
+  };
+
+  const toggleBookmark = () => {
+    if (bookmarkedPages.includes(currentPage)) {
+      setBookmarkedPages(bookmarkedPages.filter(p => p !== currentPage));
+    } else {
+      setBookmarkedPages([...bookmarkedPages, currentPage]);
     }
   };
 
-  const page = magazinePages[currentPage];
+  const currentPageData = magazinePages[currentPage];
+  const bgColor = darkMode ? 'bg-[#1a1a1a]' : 'bg-[#f5f5f5]';
+  const cardBg = darkMode ? 'bg-[#2a2a2a]' : 'bg-white';
+  const textColor = darkMode ? 'text-white' : 'text-gray-900';
+  const textSecondary = darkMode ? 'text-gray-400' : 'text-gray-600';
 
-  if (!isReading) {
+  // Library Screen
+  if (currentScreen === 'library') {
     return (
-      <div className="bg-white min-h-screen pb-20 flex flex-col">
+      <div className={`min-h-screen pb-20 ${bgColor}`}>
         {/* Header */}
-        <header className="bg-[#10B981] text-white p-4 text-center shadow-md">
-          <h1 className="text-xl font-bold">GST TODAY</h1>
+        <header className={`${cardBg} shadow-md sticky top-0 z-10`}>
+          <div className="px-4 py-4">
+            <h1 className={`text-2xl font-bold ${textColor}`}>My Library</h1>
+            <p className={`text-sm ${textSecondary} mt-1`}>Your GST Magazine Collection</p>
+          </div>
+          
+          {/* Tabs */}
+          <div className="flex border-t border-gray-200 dark:border-gray-700">
+            <button className="flex-1 px-4 py-3 text-sm font-medium text-[#E53935] border-b-2 border-[#E53935]">
+              Recent
+            </button>
+            <button className={`flex-1 px-4 py-3 text-sm font-medium ${textSecondary}`}>
+              Favorites
+            </button>
+            <button className={`flex-1 px-4 py-3 text-sm font-medium ${textSecondary}`}>
+              All Books
+            </button>
+          </div>
         </header>
 
-        {/* Content */}
-        <div className="flex-1 flex flex-col items-center justify-center p-8">
-          {/* FlipBook Icon */}
-          <div className="relative mb-8">
-            {/* Book Illustration */}
-            <div className="relative w-48 h-48">
-              {/* Back pages */}
-              <div className="absolute inset-0 bg-gradient-to-br from-[#06B6D4] to-[#0891B2] rounded-2xl transform rotate-6 shadow-lg"></div>
-              <div className="absolute inset-0 bg-gradient-to-br from-[#06B6D4] to-[#0891B2] rounded-2xl transform rotate-3 shadow-lg"></div>
-              
-              {/* Front page */}
-              <div className="absolute inset-0 bg-gradient-to-br from-[#06B6D4] to-[#0891B2] rounded-2xl shadow-2xl flex items-center justify-center">
-                <BookOpen className="w-24 h-24 text-white" strokeWidth={1.5} />
+        {/* Book Card */}
+        <div className="p-4">
+          <div 
+            onClick={() => setCurrentScreen('reader')}
+            className={`${cardBg} rounded-2xl shadow-lg overflow-hidden active:scale-98 transition-transform`}
+          >
+            <div className="relative h-64">
+              <img
+                src={coverImage}
+                alt="GST TODAY Magazine"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+              <div className="absolute bottom-4 left-4 right-4">
+                <h2 className="text-2xl font-bold text-white mb-1">GST TODAY Magazine</h2>
+                <p className="text-sm text-white/90">February 2026 Edition</p>
               </div>
-
-              {/* Opening effect */}
-              <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#06B6D4]/50 to-transparent rounded-r-2xl"></div>
+              <div className="absolute top-4 right-4 bg-[#E53935] text-white text-xs font-bold px-3 py-1 rounded-full">
+                NEW
+              </div>
             </div>
-
-            {/* Animated lines */}
-            <div className="absolute -right-4 top-1/2 -translate-y-1/2 space-y-2">
-              <div className="w-16 h-1 bg-[#06B6D4]/30 rounded animate-pulse"></div>
-              <div className="w-12 h-1 bg-[#06B6D4]/30 rounded animate-pulse" style={{ animationDelay: '0.2s' }}></div>
-              <div className="w-14 h-1 bg-[#06B6D4]/30 rounded animate-pulse" style={{ animationDelay: '0.4s' }}></div>
+            
+            <div className="p-4">
+              <div className="flex items-center justify-between mb-3">
+                <span className={`text-sm ${textSecondary}`}>8 pages • 15 min read</span>
+                <span className="text-sm font-medium text-[#10B981]">Continue Reading</span>
+              </div>
+              
+              {/* Progress Bar */}
+              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                <div className="bg-[#E53935] h-2 rounded-full" style={{ width: '35%' }}></div>
+              </div>
             </div>
           </div>
 
-          {/* Title */}
-          <h2 className="text-3xl font-bold text-[#06B6D4] mb-2">FlipBook</h2>
-          <p className="text-[#6B7280] text-center max-w-sm mb-2">
-            Read GST TODAY Magazine in an interactive flipbook format
-          </p>
-          <p className="text-sm font-semibold text-[#E53935] mb-6">
-            February 2026 Edition - 10 Pages
-          </p>
-
-          {/* Read Now Button */}
-          <button
-            onClick={() => setIsReading(true)}
-            className="px-8 py-3 bg-[#E53935] hover:bg-[#C62828] text-white rounded-xl font-bold shadow-lg transition-all active:scale-95"
-          >
-            Read Magazine Now
-          </button>
-
           {/* Features */}
-          <div className="mt-12 w-full max-w-md space-y-3">
-            <div className="flex items-center space-x-3 p-3 bg-[#F0FDFA] rounded-lg">
-              <div className="w-2 h-2 bg-[#06B6D4] rounded-full"></div>
-              <p className="text-sm text-[#6B7280]">Interactive page flipping</p>
+          <div className="mt-6 space-y-3">
+            <h3 className={`text-lg font-bold ${textColor} mb-3`}>Features</h3>
+            
+            <div className={`${cardBg} rounded-xl p-4 flex items-center space-x-3`}>
+              <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
+                <BookOpen className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+              </div>
+              <div className="flex-1">
+                <h4 className={`font-semibold ${textColor}`}>Realistic Page Flip</h4>
+                <p className={`text-sm ${textSecondary}`}>3D page curl animation</p>
+              </div>
             </div>
-            <div className="flex items-center space-x-3 p-3 bg-[#F0FDFA] rounded-lg">
-              <div className="w-2 h-2 bg-[#06B6D4] rounded-full"></div>
-              <p className="text-sm text-[#6B7280]">10 pages of GST insights</p>
+
+            <div className={`${cardBg} rounded-xl p-4 flex items-center space-x-3`}>
+              <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center">
+                <Grid className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+              </div>
+              <div className="flex-1">
+                <h4 className={`font-semibold ${textColor}`}>Page Thumbnails</h4>
+                <p className={`text-sm ${textSecondary}`}>Quick navigation</p>
+              </div>
             </div>
-            <div className="flex items-center space-x-3 p-3 bg-[#F0FDFA] rounded-lg">
-              <div className="w-2 h-2 bg-[#06B6D4] rounded-full"></div>
-              <p className="text-sm text-[#6B7280]">Swipe to turn pages</p>
+
+            <div className={`${cardBg} rounded-xl p-4 flex items-center space-x-3`}>
+              <div className="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center">
+                <ZoomIn className="w-6 h-6 text-green-600 dark:text-green-400" />
+              </div>
+              <div className="flex-1">
+                <h4 className={`font-semibold ${textColor}`}>Zoom & Pan</h4>
+                <p className={`text-sm ${textSecondary}`}>Pinch to zoom support</p>
+              </div>
             </div>
+          </div>
+        </div>
+
+        {/* Bottom Nav */}
+        <div className={`fixed bottom-0 left-0 right-0 ${cardBg} border-t border-gray-200 dark:border-gray-700 pb-safe`}>
+          <div className="flex items-center justify-around py-2">
+            <button className="flex flex-col items-center p-2 text-[#E53935]">
+              <Home className="w-6 h-6 mb-1" />
+              <span className="text-xs font-medium">Library</span>
+            </button>
+            <button 
+              onClick={() => setCurrentScreen('reader')}
+              className={`flex flex-col items-center p-2 ${textSecondary}`}
+            >
+              <BookOpen className="w-6 h-6 mb-1" />
+              <span className="text-xs font-medium">Reader</span>
+            </button>
+            <button 
+              onClick={() => setCurrentScreen('settings')}
+              className={`flex flex-col items-center p-2 ${textSecondary}`}
+            >
+              <Settings className="w-6 h-6 mb-1" />
+              <span className="text-xs font-medium">Settings</span>
+            </button>
           </div>
         </div>
       </div>
     );
   }
 
-  return (
-    <div className="bg-black min-h-screen flex flex-col relative">
-      {/* Close Button */}
-      <button
-        onClick={() => setIsReading(false)}
-        className="absolute top-4 right-4 z-20 w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center hover:bg-white/30 transition-colors"
-      >
-        <X className="w-6 h-6 text-white" />
-      </button>
+  // Settings Screen
+  if (currentScreen === 'settings') {
+    return (
+      <div className={`min-h-screen pb-20 ${bgColor}`}>
+        {/* Header */}
+        <header className={`${cardBg} shadow-md`}>
+          <div className="px-4 py-4 flex items-center">
+            <button onClick={() => setCurrentScreen('library')} className="mr-3">
+              <ChevronLeft className={`w-6 h-6 ${textColor}`} />
+            </button>
+            <h1 className={`text-xl font-bold ${textColor}`}>Settings</h1>
+          </div>
+        </header>
 
-      {/* Page Counter */}
-      <div className="absolute top-4 left-4 z-20 bg-white/20 backdrop-blur-md px-4 py-2 rounded-full">
-        <span className="text-white text-sm font-bold">
-          Page {currentPage + 1} of {magazinePages.length}
-        </span>
+        <div className="p-4 space-y-4">
+          {/* Theme */}
+          <div className={`${cardBg} rounded-xl p-4`}>
+            <h3 className={`font-semibold ${textColor} mb-4`}>Appearance</h3>
+            
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center space-x-3">
+                {darkMode ? <Moon className="w-5 h-5 text-blue-500" /> : <Sun className="w-5 h-5 text-yellow-500" />}
+                <div>
+                  <p className={`font-medium ${textColor}`}>Dark Mode</p>
+                  <p className={`text-sm ${textSecondary}`}>Reduce eye strain</p>
+                </div>
+              </div>
+              <button
+                onClick={() => setDarkMode(!darkMode)}
+                className={`w-14 h-8 rounded-full transition-colors ${
+                  darkMode ? 'bg-blue-500' : 'bg-gray-300'
+                }`}
+              >
+                <div className={`w-6 h-6 bg-white rounded-full shadow-md transition-transform ${
+                  darkMode ? 'translate-x-7' : 'translate-x-1'
+                }`}></div>
+              </button>
+            </div>
+          </div>
+
+          {/* Reading Preferences */}
+          <div className={`${cardBg} rounded-xl p-4`}>
+            <h3 className={`font-semibold ${textColor} mb-4`}>Reading Preferences</h3>
+            
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className={`font-medium ${textColor}`}>Page Thumbnails</p>
+                  <p className={`text-sm ${textSecondary}`}>Show at bottom</p>
+                </div>
+                <button
+                  onClick={() => setShowThumbnails(!showThumbnails)}
+                  className={`w-14 h-8 rounded-full transition-colors ${
+                    showThumbnails ? 'bg-blue-500' : 'bg-gray-300'
+                  }`}
+                >
+                  <div className={`w-6 h-6 bg-white rounded-full shadow-md transition-transform ${
+                    showThumbnails ? 'translate-x-7' : 'translate-x-1'
+                  }`}></div>
+                </button>
+              </div>
+
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className={`font-medium ${textColor}`}>Page Flip Sound</p>
+                  <p className={`text-sm ${textSecondary}`}>Audio feedback</p>
+                </div>
+                <button className="w-14 h-8 rounded-full bg-blue-500">
+                  <div className="w-6 h-6 bg-white rounded-full shadow-md translate-x-7"></div>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* About */}
+          <div className={`${cardBg} rounded-xl p-4`}>
+            <h3 className={`font-semibold ${textColor} mb-4`}>About</h3>
+            <div className="space-y-2">
+              <p className={`text-sm ${textSecondary}`}>GST TODAY Magazine Reader</p>
+              <p className={`text-sm ${textSecondary}`}>Version 1.0.0</p>
+              <p className={`text-sm ${textSecondary}`}>© 2026 GST TODAY TV</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Nav */}
+        <div className={`fixed bottom-0 left-0 right-0 ${cardBg} border-t border-gray-200 dark:border-gray-700 pb-safe`}>
+          <div className="flex items-center justify-around py-2">
+            <button 
+              onClick={() => setCurrentScreen('library')}
+              className={`flex flex-col items-center p-2 ${textSecondary}`}
+            >
+              <Home className="w-6 h-6 mb-1" />
+              <span className="text-xs font-medium">Library</span>
+            </button>
+            <button 
+              onClick={() => setCurrentScreen('reader')}
+              className={`flex flex-col items-center p-2 ${textSecondary}`}
+            >
+              <BookOpen className="w-6 h-6 mb-1" />
+              <span className="text-xs font-medium">Reader</span>
+            </button>
+            <button className="flex flex-col items-center p-2 text-[#E53935]">
+              <Settings className="w-6 h-6 mb-1" />
+              <span className="text-xs font-medium">Settings</span>
+            </button>
+          </div>
+        </div>
       </div>
+    );
+  }
 
-      {/* Magazine Page with Flip Animation */}
+  // Reader Screen
+  return (
+    <div className={`min-h-screen flex flex-col ${bgColor}`}>
+      {/* Top Header */}
+      <header className={`${cardBg} shadow-sm z-20`}>
+        <div className="px-4 py-3 flex items-center justify-between">
+          <button onClick={() => setCurrentScreen('library')}>
+            <ChevronLeft className={`w-6 h-6 ${textColor}`} />
+          </button>
+          
+          <div className="flex-1 mx-4 text-center">
+            <h1 className={`text-sm font-semibold ${textColor} truncate`}>
+              {currentPageData.title}
+            </h1>
+            <p className={`text-xs ${textSecondary}`}>
+              Page {currentPage + 1} of {totalPages}
+            </p>
+          </div>
+
+          <div className="flex items-center space-x-2">
+            <button onClick={() => setSearchOpen(!searchOpen)}>
+              <Search className={`w-5 h-5 ${textColor}`} />
+            </button>
+            <button onClick={toggleBookmark}>
+              {bookmarkedPages.includes(currentPage) ? (
+                <BookmarkCheck className="w-5 h-5 text-[#E53935]" />
+              ) : (
+                <Bookmark className={`w-5 h-5 ${textColor}`} />
+              )}
+            </button>
+            <button onClick={() => setShowTOC(true)}>
+              <Menu className={`w-5 h-5 ${textColor}`} />
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Page Container */}
       <div 
-        className="flex-1 flex items-center justify-center p-4 perspective-1000"
-        onTouchStart={(e) => handleSwipe(e, 'start')}
-        onTouchEnd={(e) => handleSwipe(e, 'end')}
+        className="flex-1 flex items-center justify-center p-4 relative overflow-hidden"
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
       >
-        <div className="relative w-full max-w-md h-[600px]">
-          {/* Page Container with 3D Flip Effect */}
-          <div 
-            className={`absolute inset-0 transition-all duration-600 transform-style-3d ${
+        {/* Navigation Arrows */}
+        <button
+          onClick={handlePrevPage}
+          disabled={currentPage === 0 || isFlipping}
+          className={`absolute left-2 z-10 w-10 h-10 ${cardBg} rounded-full shadow-lg flex items-center justify-center transition-all ${
+            currentPage === 0 || isFlipping ? 'opacity-0 pointer-events-none' : 'opacity-70 hover:opacity-100'
+          }`}
+        >
+          <ChevronLeft className={`w-6 h-6 ${textColor}`} />
+        </button>
+
+        <button
+          onClick={handleNextPage}
+          disabled={currentPage === totalPages - 1 || isFlipping}
+          className={`absolute right-2 z-10 w-10 h-10 ${cardBg} rounded-full shadow-lg flex items-center justify-center transition-all ${
+            currentPage === totalPages - 1 || isFlipping ? 'opacity-0 pointer-events-none' : 'opacity-70 hover:opacity-100'
+          }`}
+        >
+          <ChevronRight className={`w-6 h-6 ${textColor}`} />
+        </button>
+
+        {/* Page with Flip Animation */}
+        <div
+          ref={pageRef}
+          className="relative"
+          style={{
+            width: '85vw',
+            maxWidth: '500px',
+            height: '70vh',
+            maxHeight: '700px',
+            perspective: '1500px',
+          }}
+        >
+          {/* Next/Previous Page (underneath) */}
+          {isFlipping && (
+            <div
+              className={`absolute inset-0 ${cardBg} rounded-lg shadow-2xl overflow-hidden`}
+              style={{
+                transform: `scale(${zoom})`,
+              }}
+            >
+              <div className="relative w-full h-full">
+                {flipDirection === 'next' && currentPage < totalPages - 1 ? (
+                  magazinePages[currentPage + 1].type === 'cover' ? (
+                    <div className="h-full relative">
+                      <img
+                        src={magazinePages[currentPage + 1].image}
+                        alt={magazinePages[currentPage + 1].title}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#E53935]/95 via-[#E53935]/80 to-black/70 flex flex-col items-center justify-center p-8 text-center">
+                        <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mb-6 border-4 border-white/40">
+                          <BookOpen className="w-10 h-10 text-white" />
+                        </div>
+                        <h1 className="text-4xl font-black text-white mb-4 uppercase tracking-tight">
+                          {magazinePages[currentPage + 1].title}
+                        </h1>
+                        <div className="w-24 h-1 bg-white/80 mb-4"></div>
+                        <p className="text-xl font-bold text-white/95 mb-3">
+                          {magazinePages[currentPage + 1].subtitle}
+                        </p>
+                        <p className="text-sm text-white/90 max-w-xs">
+                          {magazinePages[currentPage + 1].content}
+                        </p>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className={`h-full flex flex-col ${darkMode ? 'bg-[#2a2a2a]' : 'bg-white'}`}>
+                      <div className="relative h-2/5 overflow-hidden">
+                        <img
+                          src={magazinePages[currentPage + 1].image}
+                          alt={magazinePages[currentPage + 1].title}
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/20"></div>
+                      </div>
+                      
+                      <div className="flex-1 p-6 overflow-y-auto">
+                        <h2 className={`text-2xl font-bold mb-4 ${textColor}`}>
+                          {magazinePages[currentPage + 1].title}
+                        </h2>
+                        <p className={`text-base leading-relaxed ${textSecondary}`}>
+                          {magazinePages[currentPage + 1].content}
+                        </p>
+                      </div>
+
+                      <div className={`absolute bottom-4 right-6 text-sm font-medium ${textSecondary}`}>
+                        {currentPage + 2}
+                      </div>
+                    </div>
+                  )
+                ) : flipDirection === 'prev' && currentPage > 0 ? (
+                  magazinePages[currentPage - 1].type === 'cover' ? (
+                    <div className="h-full relative">
+                      <img
+                        src={magazinePages[currentPage - 1].image}
+                        alt={magazinePages[currentPage - 1].title}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#E53935]/95 via-[#E53935]/80 to-black/70 flex flex-col items-center justify-center p-8 text-center">
+                        <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mb-6 border-4 border-white/40">
+                          <BookOpen className="w-10 h-10 text-white" />
+                        </div>
+                        <h1 className="text-4xl font-black text-white mb-4 uppercase tracking-tight">
+                          {magazinePages[currentPage - 1].title}
+                        </h1>
+                        <div className="w-24 h-1 bg-white/80 mb-4"></div>
+                        <p className="text-xl font-bold text-white/95 mb-3">
+                          {magazinePages[currentPage - 1].subtitle}
+                        </p>
+                        <p className="text-sm text-white/90 max-w-xs">
+                          {magazinePages[currentPage - 1].content}
+                        </p>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className={`h-full flex flex-col ${darkMode ? 'bg-[#2a2a2a]' : 'bg-white'}`}>
+                      <div className="relative h-2/5 overflow-hidden">
+                        <img
+                          src={magazinePages[currentPage - 1].image}
+                          alt={magazinePages[currentPage - 1].title}
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/20"></div>
+                      </div>
+                      
+                      <div className="flex-1 p-6 overflow-y-auto">
+                        <h2 className={`text-2xl font-bold mb-4 ${textColor}`}>
+                          {magazinePages[currentPage - 1].title}
+                        </h2>
+                        <p className={`text-base leading-relaxed ${textSecondary}`}>
+                          {magazinePages[currentPage - 1].content}
+                        </p>
+                      </div>
+
+                      <div className={`absolute bottom-4 right-6 text-sm font-medium ${textSecondary}`}>
+                        {currentPage}
+                      </div>
+                    </div>
+                  )
+                ) : null}
+              </div>
+            </div>
+          )}
+
+          {/* Current Page (turning) */}
+          <div
+            className={`absolute inset-0 ${cardBg} rounded-lg shadow-2xl overflow-hidden transition-all duration-800 ${
               isFlipping 
-                ? flipDirection === 'next' 
-                  ? 'animate-flip-next' 
-                  : 'animate-flip-prev'
+                ? flipDirection === 'next'
+                  ? 'animate-page-turn-next'
+                  : 'animate-page-turn-prev'
                 : ''
             }`}
             style={{
               transformStyle: 'preserve-3d',
-              transition: 'transform 0.6s',
+              transform: `scale(${zoom})`,
+              transformOrigin: flipDirection === 'next' ? 'left center' : 'right center',
             }}
           >
-            <div className="bg-white rounded-2xl shadow-2xl overflow-hidden h-full backface-hidden">
-              {/* Page Image */}
-              <div className="relative h-64">
-                <img
-                  src={page.image}
-                  alt={page.title}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-transparent"></div>
-                {page.type === 'cover' && (
-                  <div className="absolute inset-0 flex items-center justify-center text-center p-6">
-                    <div>
-                      <h1 className="text-4xl font-black text-white mb-2">{page.title}</h1>
-                      <p className="text-xl font-bold text-white/90">{page.subtitle}</p>
-                      <p className="text-sm text-white/80 mt-2">{page.content}</p>
-                    </div>
-                  </div>
-                )}
-              </div>
+            {/* Page Shadow */}
+            <div className="absolute -bottom-4 left-4 right-4 h-8 bg-black/30 blur-xl rounded-full"></div>
 
-              {/* Page Content */}
-              {page.type !== 'cover' && (
-                <div className="p-6 overflow-y-auto" style={{ maxHeight: 'calc(600px - 256px)' }}>
-                  <h2 className="text-2xl font-bold text-black mb-4">{page.title}</h2>
-                  <p className="text-sm text-[#6B7280] leading-relaxed whitespace-pre-line">
-                    {page.content}
-                  </p>
+            {/* Page Curl Shadow Overlay (appears during turn) */}
+            {isFlipping && (
+              <div 
+                className={`absolute inset-0 pointer-events-none z-10 ${
+                  flipDirection === 'next' ? 'animate-curl-shadow-next' : 'animate-curl-shadow-prev'
+                }`}
+                style={{
+                  background: flipDirection === 'next' 
+                    ? 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.3) 100%)'
+                    : 'linear-gradient(to left, transparent 0%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.3) 100%)',
+                }}
+              ></div>
+            )}
+
+            {/* Page Content */}
+            <div className="relative w-full h-full">
+              {currentPageData.type === 'cover' ? (
+                // Cover Page
+                <div className="h-full relative">
+                  <img
+                    src={currentPageData.image}
+                    alt={currentPageData.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#E53935]/95 via-[#E53935]/80 to-black/70 flex flex-col items-center justify-center p-8 text-center">
+                    <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mb-6 border-4 border-white/40">
+                      <BookOpen className="w-10 h-10 text-white" />
+                    </div>
+                    <h1 className="text-4xl font-black text-white mb-4 uppercase tracking-tight">
+                      {currentPageData.title}
+                    </h1>
+                    <div className="w-24 h-1 bg-white/80 mb-4"></div>
+                    <p className="text-xl font-bold text-white/95 mb-3">
+                      {currentPageData.subtitle}
+                    </p>
+                    <p className="text-sm text-white/90 max-w-xs">
+                      {currentPageData.content}
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                // Content Page
+                <div className={`h-full flex flex-col ${darkMode ? 'bg-[#2a2a2a]' : 'bg-white'}`}>
+                  <div className="relative h-2/5 overflow-hidden">
+                    <img
+                      src={currentPageData.image}
+                      alt={currentPageData.title}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/20"></div>
+                  </div>
+                  
+                  <div className="flex-1 p-6 overflow-y-auto">
+                    <h2 className={`text-2xl font-bold mb-4 ${textColor}`}>
+                      {currentPageData.title}
+                    </h2>
+                    <p className={`text-base leading-relaxed ${textSecondary}`}>
+                      {currentPageData.content}
+                    </p>
+                  </div>
+
+                  {/* Page Number */}
+                  <div className={`absolute bottom-4 right-6 text-sm font-medium ${textSecondary}`}>
+                    {currentPage + 1}
+                  </div>
                 </div>
               )}
             </div>
           </div>
         </div>
+
+        {/* Swipe Hint */}
+        {currentPage === 0 && !isFlipping && (
+          <div className="absolute bottom-32 left-1/2 -translate-x-1/2 bg-black/80 text-white text-sm px-4 py-2 rounded-full animate-bounce">
+            👈 Swipe to flip pages 👉
+          </div>
+        )}
       </div>
 
-      {/* Navigation Controls */}
-      <div className="bg-white/10 backdrop-blur-md p-4">
-        <div className="flex items-center justify-between max-w-md mx-auto">
+      {/* Zoom Controls */}
+      <div className={`${cardBg} border-t border-gray-200 dark:border-gray-700 px-4 py-2`}>
+        <div className="flex items-center justify-center space-x-4">
           <button
-            onClick={handlePrevPage}
-            disabled={currentPage === 0 || isFlipping}
-            className="flex items-center space-x-2 px-4 py-2 bg-white/20 rounded-lg disabled:opacity-30 disabled:cursor-not-allowed hover:bg-white/30 transition-colors"
+            onClick={() => setZoom(Math.max(0.8, zoom - 0.2))}
+            disabled={zoom <= 0.8}
+            className={`p-2 rounded-lg transition-colors ${
+              zoom <= 0.8 ? 'opacity-30' : 'hover:bg-gray-100 dark:hover:bg-gray-700'
+            }`}
           >
-            <ChevronLeft className="w-5 h-5 text-white" />
-            <span className="text-white font-semibold">Previous</span>
+            <ZoomOut className={`w-5 h-5 ${textColor}`} />
           </button>
 
-          <div className="flex space-x-2">
-            {magazinePages.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => {
-                  if (!isFlipping && index !== currentPage) {
-                    setIsFlipping(true);
-                    setFlipDirection(index > currentPage ? 'next' : 'prev');
-                    setTimeout(() => {
-                      setCurrentPage(index);
-                      setIsFlipping(false);
-                    }, 600);
-                  }
-                }}
-                className={`w-2 h-2 rounded-full transition-all ${
-                  index === currentPage ? 'bg-white w-6' : 'bg-white/40'
-                }`}
-              />
-            ))}
+          <div className="flex items-center space-x-2 min-w-[100px] justify-center">
+            <span className={`text-sm font-medium ${textColor}`}>{Math.round(zoom * 100)}%</span>
           </div>
 
           <button
-            onClick={handleNextPage}
-            disabled={currentPage === magazinePages.length - 1 || isFlipping}
-            className="flex items-center space-x-2 px-4 py-2 bg-white/20 rounded-lg disabled:opacity-30 disabled:cursor-not-allowed hover:bg-white/30 transition-colors"
+            onClick={() => setZoom(Math.min(1.5, zoom + 0.2))}
+            disabled={zoom >= 1.5}
+            className={`p-2 rounded-lg transition-colors ${
+              zoom >= 1.5 ? 'opacity-30' : 'hover:bg-gray-100 dark:hover:bg-gray-700'
+            }`}
           >
-            <span className="text-white font-semibold">Next</span>
-            <ChevronRight className="w-5 h-5 text-white" />
+            <ZoomIn className={`w-5 h-5 ${textColor}`} />
           </button>
         </div>
       </div>
 
-      {/* Swipe Hint */}
-      {currentPage === 0 && (
-        <div className="absolute bottom-24 left-1/2 -translate-x-1/2 text-white text-xs animate-bounce pointer-events-none">
-          ← Swipe to turn pages →
+      {/* Page Thumbnails */}
+      {showThumbnails && (
+        <div className={`${cardBg} border-t border-gray-200 dark:border-gray-700 px-2 py-3`}>
+          <div className="flex items-center space-x-2 overflow-x-auto scrollbar-hide">
+            {magazinePages.map((page, index) => (
+              <button
+                key={page.id}
+                onClick={() => {
+                  if (index !== currentPage && !isFlipping) {
+                    setIsFlipping(true);
+                    setFlipDirection(index > currentPage ? 'next' : 'prev');
+                    playPageTurnSound();
+                    setTimeout(() => {
+                      setCurrentPage(index);
+                      setIsFlipping(false);
+                    }, 800);
+                  }
+                }}
+                className={`flex-shrink-0 relative transition-all ${
+                  index === currentPage 
+                    ? 'ring-2 ring-[#E53935] scale-110' 
+                    : 'opacity-60 hover:opacity-100'
+                }`}
+              >
+                <img
+                  src={page.thumbnail}
+                  alt={`Page ${index + 1}`}
+                  className="w-12 h-16 object-cover rounded shadow-md"
+                />
+                {bookmarkedPages.includes(index) && (
+                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-[#E53935] rounded-full"></div>
+                )}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Table of Contents Modal */}
+      {showTOC && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-end">
+          <div className={`${cardBg} rounded-t-3xl w-full max-h-[70vh] overflow-hidden animate-slide-up`}>
+            <div className="p-4 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
+              <h2 className={`text-xl font-bold ${textColor}`}>Table of Contents</h2>
+              <button onClick={() => setShowTOC(false)}>
+                <X className={`w-6 h-6 ${textColor}`} />
+              </button>
+            </div>
+            
+            <div className="overflow-y-auto max-h-[60vh] p-4 space-y-2">
+              {magazinePages.map((page, index) => (
+                <button
+                  key={page.id}
+                  onClick={() => {
+                    setCurrentPage(index);
+                    setShowTOC(false);
+                    playPageTurnSound();
+                  }}
+                  className={`w-full text-left p-3 rounded-lg transition-colors ${
+                    index === currentPage
+                      ? 'bg-[#E53935] text-white'
+                      : `${darkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100'} ${textColor}`
+                  }`}
+                >
+                  <div className="flex items-center space-x-3">
+                    <span className="text-sm font-bold opacity-60">
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
+                    <div className="flex-1">
+                      <p className="font-medium">{page.title}</p>
+                      <p className={`text-xs ${index === currentPage ? 'text-white/80' : textSecondary}`}>
+                        {page.type}
+                      </p>
+                    </div>
+                    {bookmarkedPages.includes(index) && (
+                      <BookmarkCheck className="w-5 h-5" />
+                    )}
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
       )}
 
       <style>{`
-        @keyframes flip-next {
+        @keyframes page-turn-next {
           0% {
-            transform: perspective(1000px) rotateY(0deg);
+            transform: perspective(2000px) rotateY(0deg) translateX(0) translateZ(0);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            opacity: 1;
           }
           100% {
-            transform: perspective(1000px) rotateY(-180deg);
+            transform: perspective(2000px) rotateY(-180deg) translateX(0) translateZ(0);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            opacity: 1;
           }
         }
-        
-        @keyframes flip-prev {
+
+        @keyframes page-turn-prev {
           0% {
-            transform: perspective(1000px) rotateY(0deg);
+            transform: perspective(2000px) rotateY(0deg) translateX(0) translateZ(0);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            opacity: 1;
           }
           100% {
-            transform: perspective(1000px) rotateY(180deg);
+            transform: perspective(2000px) rotateY(180deg) translateX(0) translateZ(0);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            opacity: 1;
           }
         }
-        
-        .animate-flip-next {
-          animation: flip-next 0.6s ease-in-out;
+
+        @keyframes curl-shadow-next {
+          0% {
+            opacity: 0;
+          }
+          50% {
+            opacity: 0.4;
+          }
+          100% {
+            opacity: 0;
+          }
         }
-        
-        .animate-flip-prev {
-          animation: flip-prev 0.6s ease-in-out;
+
+        @keyframes curl-shadow-prev {
+          0% {
+            opacity: 0;
+          }
+          50% {
+            opacity: 0.4;
+          }
+          100% {
+            opacity: 0;
+          }
         }
-        
-        .backface-hidden {
-          backface-visibility: hidden;
+
+        .animate-page-turn-next {
+          animation: page-turn-next 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
-        
-        .perspective-1000 {
-          perspective: 1000px;
+
+        .animate-page-turn-prev {
+          animation: page-turn-prev 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
-        
-        .transform-style-3d {
-          transform-style: preserve-3d;
+
+        .animate-curl-shadow-next {
+          animation: curl-shadow-next 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .animate-curl-shadow-prev {
+          animation: curl-shadow-prev 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        @keyframes slide-up {
+          from {
+            transform: translateY(100%);
+          }
+          to {
+            transform: translateY(0);
+          }
+        }
+
+        .animate-slide-up {
+          animation: slide-up 0.3s ease-out;
+        }
+
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+
+        .pb-safe {
+          padding-bottom: env(safe-area-inset-bottom);
         }
       `}</style>
     </div>

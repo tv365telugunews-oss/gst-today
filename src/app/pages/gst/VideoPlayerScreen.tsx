@@ -76,7 +76,7 @@ export default function VideoPlayerScreen() {
   }, []);
 
   return (
-    <div className={`bg-gray-50 min-h-screen ${isFullscreen ? 'fixed inset-0 z-50 bg-black' : ''}`}>
+    <div className={`bg-gray-50 min-h-screen pb-20 ${isFullscreen ? 'fixed inset-0 z-50 bg-black pb-0' : ''}`}>
       {/* Header - Hide in fullscreen */}
       {!isFullscreen && (
         <header className="bg-[#E53935] text-white p-4 flex items-center sticky top-0 z-10">

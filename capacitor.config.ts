@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.newsrobo.app',
-  appName: 'NEWS ROBO',
+  appId: 'com.gst.app',
+  appName: 'GST',
   webDir: 'dist',
   server: {
     androidScheme: 'https',

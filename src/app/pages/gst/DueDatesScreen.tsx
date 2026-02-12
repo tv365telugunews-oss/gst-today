@@ -100,7 +100,7 @@ export default function DueDatesScreen() {
   };
 
   return (
-    <div className="bg-gray-50 min-h-screen">
+    <div className="bg-gray-50 min-h-screen pb-20">
       {/* Header */}
       <header className="bg-gradient-to-r from-[#FFC107] to-[#F59E0B] text-gray-900 p-4 sticky top-0 z-10 shadow-md">
         <div className="flex items-center space-x-3 mb-2">

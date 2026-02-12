@@ -1,97 +1,195 @@
 import { useState } from 'react';
-import { ThumbsUp, ThumbsDown, MessageCircle, Share2, Bookmark, Facebook, Twitter, Linkedin, Mail, Link as LinkIcon, X } from 'lucide-react';
+import { Heart, MessageCircle, Share2, Bookmark, ChevronUp, ChevronDown, MoreVertical, Filter, X, Flag, VolumeX, Volume2, MapPin, ThumbsUp, ThumbsDown, Download } from 'lucide-react';
+import { getStateNames, getDistrictsByState, getMandalsByDistrict } from '../../data/indianLocations';
 
+// Multilingual News Data with Location and Language Support
 const shortNews = [
   {
     id: 1,
     image: 'https://images.unsplash.com/photo-1554224311-beee460c201f?w=600&h=800&fit=crop',
-    headline: 'GST Council Announces Major Rate Changes for 2026',
-    content: 'The 52nd GST Council meeting concluded with significant decisions affecting multiple sectors. Key highlights include reduction in tax rates for electronics from 18% to 12%, and introduction of new compliance measures for e-commerce operators. The Council also announced relaxation in return filing procedures for small taxpayers with turnover below Rs 5 crore. Finance Minister emphasized that these changes aim to simplify tax structure and boost manufacturing sector. The new rates will be effective from April 1, 2026. Industry bodies have welcomed the decision, particularly the reduction in electronics GST which is expected to make consumer goods more affordable.',
-    time: '5 hours ago',
+    headline: 'GST Council announces major rate reduction',
+    content: 'The 52nd GST Council meeting concluded with significant rate cuts. Electronics GST reduced from 18% to 12% effective April 1, 2026.',
+    time: '4 hours ago',
+    location: 'New Delhi, Delhi',
+    language: 'English',
+    category: 'National',
+    district: 'Central Delhi',
+    mandal: 'Connaught Place',
     likes: 1245,
+    dislikes: 23,
     comments: 89,
+    shares: 156,
   },
   {
     id: 2,
     image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&h=800&fit=crop',
-    headline: 'E-Invoice Mandatory for Rs 5 Crore Turnover Businesses',
-    content: 'Government has mandated e-invoicing for all businesses with annual turnover exceeding Rs 5 crore starting from April 1, 2026. This move is expected to bring over 2 lakh additional businesses under the e-invoicing system. The Finance Ministry stated that this will significantly reduce tax evasion and ensure better compliance. Businesses will need to generate e-invoices through the Invoice Registration Portal (IRP) for all B2B transactions. The government has assured technical support and training programs for smooth transition. Tax experts suggest businesses should start preparing their systems immediately to avoid last-minute challenges.',
+    headline: 'ई-इनवॉइस अनिवार्य: 5 करोड़ टर्नओवर',
+    content: 'सरकार ने 5 करोड़ रुपये से अधिक वार्षिक टर्नओवर वाले सभी व्यवसाों के लिए ई-इनवॉइसिंग अनिवार्य कर दी है। 1 अप्रैल 2026 से प्रभावी।',
     time: '8 hours ago',
+    location: 'Hyderabad, Telangana',
+    language: 'हिन्दी',
+    category: 'Local',
+    district: 'Hyderabad',
+    mandal: 'Kukatpally',
     likes: 892,
+    dislikes: 15,
     comments: 45,
+    shares: 78,
   },
   {
     id: 3,
     image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=800&fit=crop',
-    headline: 'GST Return Filing Deadline Extended for Small Taxpayers',
-    content: 'The Central Board of Indirect Taxes and Customs (CBIC) has extended the deadline for filing GSTR-3B and GSTR-1 returns for taxpayers with turnover less than Rs 5 crore. The new deadline is March 31, 2026, providing relief to over 1 crore small businesses. This extension comes in response to requests from trade bodies citing technical difficulties on the GST portal. The CBIC has also waived late fees for this period. Tax practitioners have appreciated this move, stating it will help small businesses focus on their core operations during the busy quarter-end period. The government portal has been upgraded to handle increased traffic.',
+    headline: 'ஜிஎஸ்டி தாக்கல் காலக்கெடு நீட்டிக்கப்பட்டது',
+    content: 'சிறு வணிகர்களுக்கு ஜிஎஸ்டி வருமானம் தாக்கல் செய்வதற்கான காலக்கெடு மார்ச் 31, 2026 வரை நீட்டிக்கப்பட்டுள்ளது।',
     time: '12 hours ago',
+    location: 'Chennai, Tamil Nadu',
+    language: 'தமிழ்',
+    category: 'Regional',
+    district: 'Chennai',
+    mandal: 'T Nagar',
     likes: 1567,
+    dislikes: 12,
     comments: 123,
+    shares: 234,
   },
   {
     id: 4,
     image: 'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=600&h=800&fit=crop',
-    headline: 'Input Tax Credit Rules Simplified by GST Council',
-    content: 'In a major relief to businesses, the GST Council has simplified Input Tax Credit (ITC) rules making it easier for companies to claim credit on their purchases. The new rules remove several restrictions that were causing compliance burden. Key changes include relaxation in time limits for claiming ITC, simplified documentation requirements, and automated verification process. The Council has also clarified that businesses can claim ITC even if suppliers have not filed their returns, subject to certain conditions. Industry experts believe this will improve cash flow for businesses and reduce litigation. The simplified rules are expected to boost business sentiment.',
+    headline: 'ఇన్‌పుట్ టాక్స్ క్రెడిట్ నియమాలు సులభతరం',
+    content: 'వ్యాపారాలకు ప్రధాన ఉపశమనంగా, జిఎస్టి కౌన్సిల్ ఇన్‌పుట్ టాక్స్ క్రెడిట్ నియమాలను సులభతరం చేసింది। కంపెనీలు తమ కొనుగోళ్లపై క్రెడిట్ క్లెయిమ్ చేయడం సులభం అవుతుంది।',
     time: '1 day ago',
+    location: 'Vijayawada, Andhra Pradesh',
+    language: 'తెలుగు',
+    category: 'State',
+    district: 'Krishna',
+    mandal: 'Vijayawada Rural',
     likes: 2103,
+    dislikes: 34,
     comments: 187,
+    shares: 312,
   },
   {
     id: 5,
     image: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&h=800&fit=crop',
-    headline: 'Supreme Court Verdict on GST on Real Estate',
-    content: 'The Supreme Court has delivered a landmark judgment clarifying the applicability of GST on under-construction properties. The court ruled that GST at 5% without input tax credit is applicable on residential properties under construction, while completed properties are exempt. The judgment provides much-needed clarity to both developers and homebuyers who were facing confusion due to conflicting interpretations. The court also addressed the issue of transition from old regime to new GST rates. Real estate developers association has welcomed the verdict saying it will bring transparency in the sector. Legal experts suggest this will reduce disputes.',
+    headline: 'ರಿಯಲ್ ಎಸ್ಟೇಟ್ ಮೇಲೆ GST: ಸುಪ್ರೀಂ ತೀರ್ಪು',
+    content: 'ನಿರ್ಮಾಣ ಹಂತದಲ್ಲಿರುವ ವಸತಿ ಆಸ್ತಿಗಳ ಮೇಲೆ 5% GST ಅನ್ವಯವಾಗುತ್ತದೆ ಎಂದು ಸುಪ್ರೀಂ ಕೋರ್ಟ್ ತೀರ್ಪು ನೀಡಿದೆ।',
     time: '1 day ago',
+    location: 'Bangalore, Karnataka',
+    language: 'ಕನ್ನಡ',
+    category: 'National',
+    district: 'Bangalore Urban',
+    mandal: 'Yeshwanthpur',
     likes: 1876,
+    dislikes: 45,
     comments: 156,
+    shares: 201,
   },
   {
     id: 6,
     image: 'https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=600&h=800&fit=crop',
-    headline: 'GST Portal Launches New Features for Easy Compliance',
-    content: 'The GST Network has launched several new features on the GST portal aimed at simplifying compliance for taxpayers. Key additions include an AI-powered chatbot for instant query resolution, automated return filing for regular taxpayers, and a mobile app with all essential features. The portal now also offers pre-filled return forms based on invoice data, reducing manual data entry. A new dashboard provides visual analytics of GST liability and ITC utilization. The government has also introduced video tutorials in multiple languages. Small businesses have particularly benefited from the simplified user interface and step-by-step guidance.',
+    headline: 'GST പോർട്ടൽ പുതിയ സവിശേഷതകൾ ലോഞ്ച് ചെയ്തു',
+    content: 'GST നെറ്റ്‌വർക്ക് നികുതി അടയ്ക്കുന്നവർക്കായി പുതിയ AI ചാറ്റ്ബോട്ട്, മൊബൈൽ ആപ്പ് എന്നിവ അവതരിപ്പിച്ചു।',
     time: '2 days ago',
+    location: 'Kochi, Kerala',
+    language: 'മലയാളം',
+    category: 'Tech',
+    district: 'Ernakulam',
+    mandal: 'Fort Kochi',
     likes: 945,
+    dislikes: 8,
     comments: 67,
+    shares: 98,
   },
   {
     id: 7,
     image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=600&h=800&fit=crop',
-    headline: 'GST Revenue Collection Hits Record High in January',
-    content: 'Indias GST revenue collection for January 2026 has reached an all-time high of Rs 1.78 lakh crore, marking a 12% increase from the previous year. This surge is attributed to improved compliance, increased economic activity, and effective implementation of e-invoicing. The Finance Ministry highlighted that this achievement reflects the growing formalization of the economy. Experts believe the trend will continue as more businesses come under the tax net. The government has used these enhanced revenues for infrastructure development and social welfare programs. Tax authorities credit the success to technology-driven enforcement and taxpayer education initiatives.',
+    headline: 'જાન્યુઆરીમાં GST રેવન્યુ રેકોર્ડ ઊંચાઈએ',
+    content: 'જાન્યુઆરી 2026 માટે ભારતનો GST રેવન્યુ કલેકશન સર્વકાલીન ઉચ્ચ સપાટી પર પહોંચ્યો છે - રૂ. 1.78 લાખ કરોડ।',
     time: '3 days ago',
+    location: 'Ahmedabad, Gujarat',
+    language: 'ગુજરાતી',
+    category: 'Economy',
+    district: 'Ahmedabad',
+    mandal: 'Navrangpura',
     likes: 2234,
+    dislikes: 56,
     comments: 198,
+    shares: 345,
   },
   {
     id: 8,
     image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=800&fit=crop',
-    headline: 'New GST Amnesty Scheme Announced for Pending Cases',
-    content: 'The government has announced a special GST amnesty scheme offering relief to taxpayers with pending disputes and show-cause notices. Under this scheme, taxpayers can settle cases by paying a reduced penalty of 25% without interest for disputes up to Rs 10 lakh. For cases above Rs 10 lakh, a 50% penalty waiver is offered. The scheme covers disputes arising from mismatches, ITC denial, and classification issues. Tax experts expect over 5 lakh cases to be resolved under this scheme, providing significant relief to small and medium businesses. The scheme is open for 90 days from announcement date.',
+    headline: 'प्रलंबित प्रकरणांसाठी नवीन माफी योजना',
+    content: 'सरकारने प्रलंबित विवाद आणि नोटिसा असलेल्या करदात्यांना सवलत देणारी विशेष GST माफी योजना जाहीर केली आहे।',
     time: '4 days ago',
+    location: 'Mumbai, Maharashtra',
+    language: 'मराठी',
+    category: 'Policy',
+    district: 'Mumbai Suburban',
+    mandal: 'Andheri',
     likes: 1654,
+    dislikes: 29,
     comments: 142,
+    shares: 178,
   },
   {
     id: 9,
     image: 'https://images.unsplash.com/photo-1434626881859-194d67b2b86f?w=600&h=800&fit=crop',
-    headline: 'GST on Online Gaming and Casinos: New Rules Clarified',
-    content: 'The Finance Ministry has issued detailed guidelines on GST applicability for online gaming, casinos, and horse racing. The clarification states that 28% GST will be levied on the full face value of bets placed. This addresses the confusion in the industry regarding whether tax should be on gross gaming revenue or total bet amount. The new rules also mandate that gaming platforms must register in every state where they operate. Industry representatives have expressed concerns about the high tax rate impacting the sector. The government maintains this will ensure proper regulation and prevent tax evasion in the rapidly growing gaming industry.',
+    headline: 'অনলাইন গেমিং এ GST: নতুন নিয়ম',
+    content: 'অর্থ মন্ত্রক অনলাইন গেমিং, ক্যাসিনো এবং ঘোড়দৌড়ের জন্য GST নির্দেশিকা জারি করেছে। বাজির সম্পূর্ণ মূল্যের উপর 28% GST প্রযোজ্য হবে।',
     time: '5 days ago',
+    location: 'Kolkata, West Bengal',
+    language: 'বাংলা',
+    category: 'Gaming',
+    district: 'Kolkata',
+    mandal: 'Salt Lake',
     likes: 1432,
+    dislikes: 67,
     comments: 234,
+    shares: 189,
   },
   {
     id: 10,
     image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=800&fit=crop',
-    headline: 'Export Incentives Under GST: Government Enhances Benefits',
-    content: 'In a move to boost exports, the government has enhanced incentives under GST for export-oriented units. Key benefits include faster refund processing with a commitment to release refunds within 7 days, relaxation in bank guarantee requirements for regular exporters, and simplification of export documentation. The Commerce Ministry has also launched a dedicated helpdesk for resolving export-related GST queries. Export bodies have welcomed these measures stating they will improve competitiveness of Indian products in global markets. The government aims to increase exports by 15% in the current fiscal year. Special focus is being given to MSME exporters.',
+    headline: 'Export Incentives Enhanced Under GST',
+    content: 'Government has enhanced GST incentives for export-oriented units. Faster refund processing with 7-day commitment and simplified documentation for exporters.',
     time: '6 days ago',
+    location: 'Pune, Maharashtra',
+    language: 'English',
+    category: 'Business',
+    district: 'Pune',
+    mandal: 'Kothrud',
     likes: 1123,
+    dislikes: 18,
     comments: 78,
+    shares: 134,
   },
+];
+
+const languages = [
+  'All Languages',
+  'English',
+  'हिन्दी',
+  'தமிழ்',
+  'తెలుగు',
+  'ಕನ್ನಡ',
+  'മലയാളം',
+  'ગુજરાતી',
+  'मराठी',
+  'বাংলা',
+];
+
+const categories = [
+  'All Categories',
+  'National',
+  'Local',
+  'Regional',
+  'State',
+  'Tech',
+  'Economy',
+  'Policy',
+  'Gaming',
+  'Business',
 ];
 
 export default function ShortNewsScreen() {
@@ -102,6 +200,49 @@ export default function ShortNewsScreen() {
   const [disliked, setDisliked] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
   const [showShareMenu, setShowShareMenu] = useState(false);
+  const [showMoreMenu, setShowMoreMenu] = useState(false);
+  const [showFilters, setShowFilters] = useState(false);
+  const [showComments, setShowComments] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState('All Languages');
+  const [selectedCategory, setSelectedCategory] = useState('All Categories');
+  const [commentText, setCommentText] = useState('');
+  const [userComments, setUserComments] = useState<Array<{id: number, text: string, time: string}>>([]);
+  
+  // Location state
+  const [selectedState, setSelectedState] = useState('All States');
+  const [selectedDistrict, setSelectedDistrict] = useState('All Districts');
+  const [selectedMandal, setSelectedMandal] = useState('All Mandals');
+  
+  // Get location options
+  const stateOptions = getStateNames();
+  const districtOptions = getDistrictsByState(selectedState);
+  const mandalOptions = getMandalsByDistrict(selectedState, selectedDistrict);
+  
+  // Handle state change
+  const handleStateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedState(e.target.value);
+    setSelectedDistrict('All Districts');
+    setSelectedMandal('All Mandals');
+  };
+  
+  // Handle district change
+  const handleDistrictChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedDistrict(e.target.value);
+    setSelectedMandal('All Mandals');
+  };
+  
+  // Handle post comment
+  const handlePostComment = () => {
+    if (commentText.trim()) {
+      const newComment = {
+        id: Date.now(),
+        text: commentText,
+        time: 'Just now'
+      };
+      setUserComments([newComment, ...userComments]);
+      setCommentText('');
+    }
+  };
 
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchStart(e.touches[0].clientY);
@@ -116,8 +257,8 @@ export default function ShortNewsScreen() {
     
     const diff = touchStart - touchEnd;
     
-    // Minimum swipe distance: 30px
-    if (Math.abs(diff) > 30) {
+    // Minimum swipe distance: 50px for better control
+    if (Math.abs(diff) > 50) {
       if (diff > 0) {
         // Swipe up - next news
         if (currentIndex < shortNews.length - 1) {
@@ -143,6 +284,7 @@ export default function ShortNewsScreen() {
     setDisliked(false);
     setBookmarked(false);
     setShowShareMenu(false);
+    setShowMoreMenu(false);
   };
 
   const handleLike = () => {
@@ -155,207 +297,362 @@ export default function ShortNewsScreen() {
     if (liked) setLiked(false);
   };
 
-  const handleShare = (platform: string) => {
-    const news = shortNews[currentIndex];
-    const text = encodeURIComponent(news.headline);
-    const url = encodeURIComponent(window.location.href);
-
-    const shareUrls: Record<string, string> = {
-      facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}`,
-      twitter: `https://twitter.com/intent/tweet?text=${text}&url=${url}`,
-      linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${url}`,
-      whatsapp: `https://wa.me/?text=${text}%20${url}`,
-      email: `mailto:?subject=${text}&body=${url}`,
-    };
-
-    if (platform === 'copy') {
-      navigator.clipboard.writeText(window.location.href);
-      alert('Link copied to clipboard!');
-    } else if (shareUrls[platform]) {
-      window.open(shareUrls[platform], '_blank');
-    }
-    setShowShareMenu(false);
-  };
-
   const currentNews = shortNews[currentIndex];
 
   return (
-    <div 
-      className="h-screen w-full bg-white relative overflow-hidden flex flex-col"
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
-    >
-      {/* Upper Section - Image (40% of screen) */}
-      <div className="h-[40vh] relative flex-shrink-0">
-        <img
-          src={currentNews.image}
-          alt="News"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-transparent"></div>
-        
-        {/* Page Counter - Top Left */}
-        <div className="absolute top-4 left-4 bg-black/70 backdrop-blur-sm px-3 py-1 rounded-full">
-          <span className="text-white text-sm font-bold">
-            {currentIndex + 1} of {shortNews.length}
-          </span>
+    <div className="h-screen w-full bg-[#F5F5F5] relative overflow-hidden flex flex-col">
+      {/* Top Filter Bar */}
+      <div className="bg-[#D32F2F] px-4 py-3 flex items-center justify-between shadow-lg z-10">
+        <div className="flex items-center space-x-2">
+          <MapPin className="w-4 h-4 text-white" />
+          <span className="text-white text-sm font-semibold">{currentNews.location}</span>
+        </div>
+        <button
+          onClick={() => setShowFilters(!showFilters)}
+          className="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-white text-xs font-semibold hover:bg-white/30 transition-colors"
+        >
+          Filters
+        </button>
+      </div>
+
+      {/* Main Content Container - Account for both action bar (64px) and bottom nav (64px) */}
+      <div 
+        className="flex-1 relative pb-32"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
+        {/* Photo Section - 42% */}
+        <div className="absolute top-0 left-0 right-0 h-[42%]">
+          <img
+            src={currentNews.image}
+            alt="News"
+            className="w-full h-full object-cover"
+          />
+          {/* Glassmorphism Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60"></div>
+          
+          {/* Location Badge on Photo - Top Left Corner */}
+          <div className="absolute top-3 left-3 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/20">
+            <div className="flex items-center space-x-1.5">
+              <MapPin className="w-3 h-3 text-[#FFC107]" />
+              <span className="text-white text-xs font-semibold">{currentNews.district}</span>
+            </div>
+          </div>
+
+          {/* Category Badge - Top Right */}
+          <div className="absolute top-3 right-3 bg-[#FFC107] px-3 py-1 rounded-full">
+            <span className="text-[#212121] text-xs font-bold uppercase">{currentNews.category}</span>
+          </div>
+
+          {/* Language Badge - Below Location */}
+          <div className="absolute top-14 left-3 bg-white/20 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/30">
+            <span className="text-white text-xs font-medium">{currentNews.language}</span>
+          </div>
         </div>
 
-        {/* Time - Top Right */}
-        <div className="absolute top-4 right-4 bg-black/70 backdrop-blur-sm px-3 py-1 rounded-full">
-          <span className="text-white text-xs font-medium">{currentNews.time}</span>
+        {/* Text Section - Account for action bar + bottom nav */}
+        <div className="absolute top-[42%] left-0 right-0 bottom-32 bg-[#FFFFFF] overflow-y-auto">
+          <div className="p-5 pb-8">
+            {/* Headline */}
+            <h2 className="text-2xl font-black text-[#212121] mb-3 leading-tight">
+              {currentNews.headline}
+            </h2>
+
+            {/* Content Text */}
+            <p className="text-base text-[#212121]/80 leading-relaxed mb-4">
+              {currentNews.content}
+            </p>
+
+            {/* Meta Info - Bottom Section */}
+            <div className="flex items-center justify-between mt-6 pt-4 border-t border-gray-200">
+              {/* Page Number - Bottom Left */}
+              <div className="flex items-center space-x-2">
+                <span className="text-sm font-bold text-[#D32F2F]">
+                  {currentIndex + 1}
+                </span>
+                <span className="text-xs text-gray-500">of</span>
+                <span className="text-sm font-bold text-gray-600">
+                  {shortNews.length}
+                </span>
+              </div>
+
+              {/* Upload Time - Bottom Right */}
+              <div className="flex items-center space-x-1">
+                <div className="w-1.5 h-1.5 bg-[#10B981] rounded-full animate-pulse"></div>
+                <span className="text-xs font-medium text-gray-500">
+                  {currentNews.time}
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Middle Section - Content (40% of screen) */}
-      <div className="h-[40vh] bg-white overflow-y-auto px-4 pt-4 pb-4 flex-shrink-0">
-        {/* Headline */}
-        <h2 className="text-xl font-bold text-black mb-3 leading-tight">
-          {currentNews.headline}
-        </h2>
-
-        {/* Content Text */}
-        <p className="text-sm text-[#6B7280] leading-relaxed">
-          {currentNews.content}
-        </p>
-      </div>
-
-      {/* Bottom Action Bar (Remaining ~20% for buttons) */}
-      <div className="flex-1 bg-white border-t border-[#E5E7EB] flex items-center justify-center px-4 shadow-lg">
-        <div className="flex items-center justify-around w-full max-w-md">
-          {/* Like */}
+      {/* Action Buttons Bar - Above bottom navigation */}
+      <div className="fixed bottom-16 left-0 right-0 bg-[#FFFFFF] border-t border-gray-200 shadow-2xl z-40">
+        <div className="h-16 flex items-center justify-around px-2">
+          {/* Three Dots Menu */}
           <button 
-            onClick={handleLike}
-            className="flex flex-col items-center space-y-1 group"
+            onClick={() => setShowMoreMenu(!showMoreMenu)}
+            className="relative flex flex-col items-center justify-center group"
           >
-            <ThumbsUp 
-              className={`w-6 h-6 transition-colors ${
-                liked ? 'text-[#E53935] fill-[#E53935]' : 'text-[#6B7280]'
-              }`} 
-            />
-            <span className="text-xs font-semibold text-[#6B7280]">
-              {liked ? currentNews.likes + 1 : currentNews.likes}
-            </span>
+            <div className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors">
+              <MoreVertical className="w-5 h-5 text-[#212121]" />
+            </div>
           </button>
 
-          {/* Dislike */}
-          <button 
-            onClick={handleDislike}
-            className="flex flex-col items-center space-y-1 group"
-          >
-            <ThumbsDown 
-              className={`w-6 h-6 transition-colors ${
-                disliked ? 'text-[#E53935] fill-[#E53935]' : 'text-[#6B7280]'
-              }`} 
-            />
-          </button>
-
-          {/* Share */}
+          {/* Share Button */}
           <button 
             onClick={() => setShowShareMenu(!showShareMenu)}
-            className="flex flex-col items-center space-y-1 group relative"
+            className="flex flex-col items-center justify-center group"
           >
-            <Share2 className="w-6 h-6 text-[#6B7280] group-hover:text-[#E53935] transition-colors" />
-            <span className="text-xs font-semibold text-[#6B7280]">Share</span>
+            <div className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-blue-50 transition-colors">
+              <Share2 className="w-5 h-5 text-[#1976D2]" />
+            </div>
           </button>
 
-          {/* Comment */}
-          <button className="flex flex-col items-center space-y-1 group">
-            <MessageCircle className="w-6 h-6 text-[#6B7280] group-hover:text-[#E53935] transition-colors" />
-            <span className="text-xs font-semibold text-[#6B7280]">{currentNews.comments}</span>
+          {/* Like Button */}
+          <button 
+            onClick={handleLike}
+            className="flex flex-col items-center justify-center group"
+          >
+            <div className={`w-10 h-10 flex items-center justify-center rounded-full transition-all ${
+              liked ? 'bg-green-50' : 'hover:bg-green-50'
+            }`}>
+              <ThumbsUp 
+                className={`w-5 h-5 transition-all ${
+                  liked ? 'text-[#10B981] fill-[#10B981]' : 'text-[#212121]'
+                }`} 
+              />
+            </div>
           </button>
 
-          {/* Bookmark */}
+          {/* Dislike Button */}
+          <button 
+            onClick={handleDislike}
+            className="flex flex-col items-center justify-center group"
+          >
+            <div className={`w-10 h-10 flex items-center justify-center rounded-full transition-all ${
+              disliked ? 'bg-red-50' : 'hover:bg-red-50'
+            }`}>
+              <ThumbsDown 
+                className={`w-5 h-5 transition-all ${
+                  disliked ? 'text-[#D32F2F] fill-[#D32F2F]' : 'text-[#212121]'
+                }`} 
+              />
+            </div>
+          </button>
+
+          {/* Comment Button */}
+          <button 
+            onClick={() => setShowComments(!showComments)}
+            className="flex flex-col items-center justify-center group"
+          >
+            <div className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-purple-50 transition-colors relative">
+              <MessageCircle className="w-5 h-5 text-[#7C3AED]" />
+              <span className="absolute -top-1 -right-1 bg-[#D32F2F] text-white text-xs font-bold px-1.5 py-0.5 rounded-full min-w-[18px] text-center">
+                {currentNews.comments}
+              </span>
+            </div>
+          </button>
+
+          {/* Bookmark Button */}
           <button 
             onClick={() => setBookmarked(!bookmarked)}
-            className="flex flex-col items-center space-y-1 group"
+            className="flex flex-col items-center justify-center group"
           >
-            <Bookmark 
-              className={`w-6 h-6 transition-colors ${
-                bookmarked ? 'text-[#E53935] fill-[#E53935]' : 'text-[#6B7280]'
-              }`} 
-            />
+            <div className={`w-10 h-10 flex items-center justify-center rounded-full transition-all ${
+              bookmarked ? 'bg-yellow-50' : 'hover:bg-yellow-50'
+            }`}>
+              <Bookmark 
+                className={`w-5 h-5 transition-all ${
+                  bookmarked ? 'text-[#FFC107] fill-[#FFC107]' : 'text-[#212121]'
+                }`} 
+              />
+            </div>
           </button>
         </div>
       </div>
+
+      {/* More Menu Modal */}
+      {showMoreMenu && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-end z-50 animate-fade-in">
+          <div className="bg-white w-full rounded-t-3xl p-6 animate-slide-up">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-lg font-bold text-[#212121]">More Options</h3>
+              <button onClick={() => setShowMoreMenu(false)}>
+                <X className="w-6 h-6 text-gray-400" />
+              </button>
+            </div>
+
+            <div className="space-y-3">
+              <button 
+                onClick={() => setBookmarked(!bookmarked)}
+                className="w-full flex items-center space-x-4 p-4 rounded-xl hover:bg-gray-50 transition-colors"
+              >
+                <Bookmark className={`w-6 h-6 ${bookmarked ? 'text-[#D32F2F] fill-[#D32F2F]' : 'text-gray-600'}`} />
+                <span className="text-base font-semibold text-[#212121]">
+                  {bookmarked ? 'Remove Bookmark' : 'Bookmark Story'}
+                </span>
+              </button>
+
+              <button className="w-full flex items-center space-x-4 p-4 rounded-xl hover:bg-gray-50 transition-colors">
+                <Download className="w-6 h-6 text-gray-600" />
+                <span className="text-base font-semibold text-[#212121]">Download Image</span>
+              </button>
+
+              <button className="w-full flex items-center space-x-4 p-4 rounded-xl hover:bg-red-50 transition-colors">
+                <Flag className="w-6 h-6 text-[#D32F2F]" />
+                <span className="text-base font-semibold text-[#D32F2F]">Report Story</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Share Menu Modal */}
       {showShareMenu && (
-        <div className="fixed inset-0 bg-black/50 flex items-end z-50 animate-fade-in">
-          <div className="bg-white w-full rounded-t-3xl p-6 animate-slide-up">
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-end z-50 animate-fade-in">
+          <div className="bg-white w-full rounded-t-3xl p-6 pb-24 animate-slide-up">
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-lg font-bold text-black">Share via</h3>
+              <h3 className="text-lg font-bold text-[#212121]">Share Story</h3>
               <button onClick={() => setShowShareMenu(false)}>
-                <X className="w-6 h-6 text-[#6B7280]" />
+                <X className="w-6 h-6 text-gray-400" />
               </button>
             </div>
 
             <div className="grid grid-cols-4 gap-4">
-              {/* Facebook */}
-              <button 
-                onClick={() => handleShare('facebook')}
-                className="flex flex-col items-center space-y-2"
-              >
-                <div className="w-14 h-14 bg-[#1877F2] rounded-full flex items-center justify-center">
-                  <Facebook className="w-7 h-7 text-white" fill="white" />
+              <button className="flex flex-col items-center space-y-2">
+                <div className="w-14 h-14 bg-[#25D366] rounded-2xl flex items-center justify-center shadow-lg">
+                  <MessageCircle className="w-7 h-7 text-white" />
                 </div>
-                <span className="text-xs text-[#6B7280]">Facebook</span>
+                <span className="text-xs font-medium text-gray-600">WhatsApp</span>
               </button>
 
-              {/* Twitter */}
-              <button 
-                onClick={() => handleShare('twitter')}
-                className="flex flex-col items-center space-y-2"
-              >
-                <div className="w-14 h-14 bg-[#1DA1F2] rounded-full flex items-center justify-center">
-                  <Twitter className="w-7 h-7 text-white" fill="white" />
+              <button className="flex flex-col items-center space-y-2">
+                <div className="w-14 h-14 bg-[#1877F2] rounded-2xl flex items-center justify-center shadow-lg">
+                  <Share2 className="w-7 h-7 text-white" />
                 </div>
-                <span className="text-xs text-[#6B7280]">Twitter</span>
+                <span className="text-xs font-medium text-gray-600">Facebook</span>
               </button>
 
-              {/* LinkedIn */}
-              <button 
-                onClick={() => handleShare('linkedin')}
-                className="flex flex-col items-center space-y-2"
-              >
-                <div className="w-14 h-14 bg-[#0A66C2] rounded-full flex items-center justify-center">
-                  <Linkedin className="w-7 h-7 text-white" fill="white" />
+              <button className="flex flex-col items-center space-y-2">
+                <div className="w-14 h-14 bg-[#1DA1F2] rounded-2xl flex items-center justify-center shadow-lg">
+                  <Share2 className="w-7 h-7 text-white" />
                 </div>
-                <span className="text-xs text-[#6B7280]">LinkedIn</span>
+                <span className="text-xs font-medium text-gray-600">Twitter</span>
               </button>
 
-              {/* WhatsApp */}
-              <button 
-                onClick={() => handleShare('whatsapp')}
-                className="flex flex-col items-center space-y-2"
-              >
-                <div className="w-14 h-14 bg-[#25D366] rounded-full flex items-center justify-center">
-                  <MessageCircle className="w-7 h-7 text-white" fill="white" />
+              <button className="flex flex-col items-center space-y-2">
+                <div className="w-14 h-14 bg-gradient-to-br from-[#833AB4] via-[#FD1D1D] to-[#F77737] rounded-2xl flex items-center justify-center shadow-lg">
+                  <Share2 className="w-7 h-7 text-white" />
                 </div>
-                <span className="text-xs text-[#6B7280]">WhatsApp</span>
+                <span className="text-xs font-medium text-gray-600">Instagram</span>
               </button>
+            </div>
+          </div>
+        </div>
+      )}
 
-              {/* Email */}
-              <button 
-                onClick={() => handleShare('email')}
-                className="flex flex-col items-center space-y-2"
-              >
-                <div className="w-14 h-14 bg-[#EA4335] rounded-full flex items-center justify-center">
-                  <Mail className="w-7 h-7 text-white" />
-                </div>
-                <span className="text-xs text-[#6B7280]">Email</span>
+      {/* Filters Modal */}
+      {showFilters && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-end z-50 animate-fade-in">
+          <div className="bg-white w-full rounded-t-3xl shadow-2xl max-h-[85vh] flex flex-col">
+            {/* Header - Fixed */}
+            <div className="flex items-center justify-between p-6 pb-4 border-b border-gray-200">
+              <h3 className="text-lg font-bold text-[#212121]">Customize Your Feed</h3>
+              <button onClick={() => setShowFilters(false)}>
+                <X className="w-6 h-6 text-gray-400" />
               </button>
+            </div>
 
-              {/* Copy Link */}
-              <button 
-                onClick={() => handleShare('copy')}
-                className="flex flex-col items-center space-y-2"
-              >
-                <div className="w-14 h-14 bg-[#6B7280] rounded-full flex items-center justify-center">
-                  <LinkIcon className="w-7 h-7 text-white" />
+            {/* Scrollable Content */}
+            <div className="flex-1 overflow-y-auto p-6 pt-4">
+              {/* Language Filter */}
+              <div className="mb-6">
+                <h4 className="text-sm font-bold text-gray-500 uppercase mb-3">Language</h4>
+                <div className="grid grid-cols-3 gap-2">
+                  {languages.map((lang) => (
+                    <button
+                      key={lang}
+                      onClick={() => setSelectedLanguage(lang)}
+                      className={`p-3 rounded-xl text-sm font-semibold transition-all ${
+                        selectedLanguage === lang
+                          ? 'bg-[#D32F2F] text-white shadow-lg'
+                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      }`}
+                    >
+                      {lang}
+                    </button>
+                  ))}
                 </div>
-                <span className="text-xs text-[#6B7280]">Copy Link</span>
+              </div>
+
+              {/* Category Filter */}
+              <div className="mb-6">
+                <h4 className="text-sm font-bold text-gray-500 uppercase mb-3">Category</h4>
+                <div className="grid grid-cols-2 gap-2">
+                  {categories.map((cat) => (
+                    <button
+                      key={cat}
+                      onClick={() => setSelectedCategory(cat)}
+                      className={`p-3 rounded-xl text-sm font-semibold transition-all ${
+                        selectedCategory === cat
+                          ? 'bg-[#1976D2] text-white shadow-lg'
+                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      }`}
+                    >
+                      {cat}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Location Selector */}
+              <div className="mb-6">
+                <h4 className="text-sm font-bold text-gray-500 uppercase mb-3">Location Preference</h4>
+                <div className="space-y-3">
+                  <select
+                    className="w-full p-3 bg-gray-100 rounded-xl font-semibold text-gray-700 border-none outline-none"
+                    value={selectedState}
+                    onChange={handleStateChange}
+                  >
+                    {stateOptions.map((state) => (
+                      <option key={state} value={state}>{state}</option>
+                    ))}
+                  </select>
+
+                  <select
+                    className="w-full p-3 bg-gray-100 rounded-xl font-semibold text-gray-700 border-none outline-none"
+                    value={selectedDistrict}
+                    onChange={handleDistrictChange}
+                  >
+                    {districtOptions.map((district) => (
+                      <option key={district} value={district}>{district}</option>
+                    ))}
+                  </select>
+
+                  <select
+                    className="w-full p-3 bg-gray-100 rounded-xl font-semibold text-gray-700 border-none outline-none"
+                    value={selectedMandal}
+                    onChange={(e) => setSelectedMandal(e.target.value)}
+                  >
+                    {mandalOptions.map((mandal) => (
+                      <option key={mandal} value={mandal}>{mandal}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            {/* Fixed Button at Bottom - Above bottom nav */}
+            <div className="p-6 pt-3 bg-white border-t border-gray-200 mb-16">
+              <button
+                onClick={() => setShowFilters(false)}
+                className="w-full p-4 bg-[#D32F2F] text-white rounded-xl font-bold shadow-lg hover:bg-[#C62828] transition-colors active:scale-95"
+              >
+                Apply Filters
               </button>
             </div>
           </div>
@@ -363,9 +660,162 @@ export default function ShortNewsScreen() {
       )}
 
       {/* Swipe Indicator */}
-      {currentIndex < shortNews.length - 1 && (
-        <div className="absolute bottom-20 left-1/2 -translate-x-1/2 text-[#6B7280] text-xs animate-bounce pointer-events-none">
-          ↑ Swipe up for next
+      {currentIndex === 0 && (
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-30">
+          <div className="bg-black/70 backdrop-blur-md text-white px-6 py-3 rounded-full animate-bounce">
+            <p className="text-sm font-semibold">↑ Swipe to explore </p>
+          </div>
+        </div>
+      )}
+
+      {/* Comments Modal */}
+      {showComments && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-end z-50 animate-fade-in">
+          <div className="bg-white w-full rounded-t-3xl shadow-2xl max-h-[85vh] flex flex-col">
+            {/* Header - Fixed */}
+            <div className="flex items-center justify-between p-6 pb-4 border-b border-gray-200">
+              <div className="flex items-center space-x-2">
+                <MessageCircle className="w-5 h-5 text-[#7C3AED]" />
+                <h3 className="text-lg font-bold text-[#212121]">
+                  Comments ({currentNews.comments})
+                </h3>
+              </div>
+              <button onClick={() => setShowComments(false)}>
+                <X className="w-6 h-6 text-gray-400" />
+              </button>
+            </div>
+
+            {/* Scrollable Comments */}
+            <div className="flex-1 overflow-y-auto p-6 pt-4">
+              {/* Mock Comments */}
+              <div className="space-y-4">
+                {/* User Posted Comments */}
+                {userComments.map((comment) => (
+                  <div key={comment.id} className="flex items-start space-x-3">
+                    <div className="w-10 h-10 bg-gradient-to-br from-[#10B981] to-[#059669] rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+                      U
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center space-x-2 mb-1">
+                        <span className="font-bold text-sm text-[#212121]">You</span>
+                        <span className="text-xs text-gray-500">{comment.time}</span>
+                      </div>
+                      <p className="text-sm text-gray-700">{comment.text}</p>
+                      <div className="flex items-center space-x-4 mt-2">
+                        <button className="flex items-center space-x-1 text-gray-500 hover:text-[#10B981]">
+                          <ThumbsUp className="w-4 h-4" />
+                          <span className="text-xs">0</span>
+                        </button>
+                        <button className="text-xs text-gray-500 hover:text-[#7C3AED]">Reply</button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+
+                <div className="flex items-start space-x-3">
+                  <div className="w-10 h-10 bg-gradient-to-br from-[#7C3AED] to-[#A855F7] rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+                    RK
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center space-x-2 mb-1">
+                      <span className="font-bold text-sm text-[#212121]">Rajesh Kumar</span>
+                      <span className="text-xs text-gray-500">2h ago</span>
+                    </div>
+                    <p className="text-sm text-gray-700">Great news! This will really help small businesses.</p>
+                    <div className="flex items-center space-x-4 mt-2">
+                      <button className="flex items-center space-x-1 text-gray-500 hover:text-[#10B981]">
+                        <ThumbsUp className="w-4 h-4" />
+                        <span className="text-xs">24</span>
+                      </button>
+                      <button className="text-xs text-gray-500 hover:text-[#7C3AED]">Reply</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-3">
+                  <div className="w-10 h-10 bg-gradient-to-br from-[#1976D2] to-[#2196F3] rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+                    PS
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center space-x-2 mb-1">
+                      <span className="font-bold text-sm text-[#212121]">Priya Sharma</span>
+                      <span className="text-xs text-gray-500">5h ago</span>
+                    </div>
+                    <p className="text-sm text-gray-700">Finally! Been waiting for this update.</p>
+                    <div className="flex items-center space-x-4 mt-2">
+                      <button className="flex items-center space-x-1 text-gray-500 hover:text-[#10B981]">
+                        <ThumbsUp className="w-4 h-4" />
+                        <span className="text-xs">12</span>
+                      </button>
+                      <button className="text-xs text-gray-500 hover:text-[#7C3AED]">Reply</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-3">
+                  <div className="w-10 h-10 bg-gradient-to-br from-[#D32F2F] to-[#F44336] rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+                    AM
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center space-x-2 mb-1">
+                      <span className="font-bold text-sm text-[#212121]">Amit Mehta</span>
+                      <span className="text-xs text-gray-500">1d ago</span>
+                    </div>
+                    <p className="text-sm text-gray-700">Can someone explain how this affects exports?</p>
+                    <div className="flex items-center space-x-4 mt-2">
+                      <button className="flex items-center space-x-1 text-gray-500 hover:text-[#10B981]">
+                        <ThumbsUp className="w-4 h-4" />
+                        <span className="text-xs">8</span>
+                      </button>
+                      <button className="text-xs text-gray-500 hover:text-[#7C3AED]">Reply</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-3">
+                  <div className="w-10 h-10 bg-gradient-to-br from-[#F57C00] to-[#FF9800] rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+                    SK
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center space-x-2 mb-1">
+                      <span className="font-bold text-sm text-[#212121]">Sneha Kapoor</span>
+                      <span className="text-xs text-gray-500">1d ago</span>
+                    </div>
+                    <p className="text-sm text-gray-700">Very informative! Thanks for sharing 🙏</p>
+                    <div className="flex items-center space-x-4 mt-2">
+                      <button className="flex items-center space-x-1 text-gray-500 hover:text-[#10B981]">
+                        <ThumbsUp className="w-4 h-4" />
+                        <span className="text-xs">15</span>
+                      </button>
+                      <button className="text-xs text-gray-500 hover:text-[#7C3AED]">Reply</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Comment Input - Fixed at Bottom */}
+            <div className="p-4 border-t border-gray-200 mb-16 bg-white">
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 bg-gradient-to-br from-[#10B981] to-[#059669] rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+                  U
+                </div>
+                <input
+                  type="text"
+                  placeholder="Add a comment..."
+                  value={commentText}
+                  onChange={(e) => setCommentText(e.target.value)}
+                  className="flex-1 px-4 py-2 bg-gray-100 rounded-full text-sm outline-none focus:ring-2 focus:ring-[#7C3AED]"
+                />
+                <button
+                  onClick={handlePostComment}
+                  className="px-4 py-2 bg-[#7C3AED] text-white rounded-full text-sm font-semibold hover:bg-[#6D28D9] transition-colors"
+                >
+                  Post
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </div>
