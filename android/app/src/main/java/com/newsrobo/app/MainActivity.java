@@ -1,4 +1,4 @@
-package com.gst.app;
+package com.newsrobo.app;
 
 import com.getcapacitor.BridgeActivity;
 
