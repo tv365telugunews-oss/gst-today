@@ -6,8 +6,8 @@ import {
 } from 'lucide-react';
 
 // Import cover and book images
-import coverImage from 'figma:asset/5d29fc4613f466074b070e79c0d44178b10da28a.png';
-import openBookImage from 'figma:asset/8d689f20c85e4ce4e2c83c02a3bb3e90903829e6.png';
+import coverImage from '../../../assets/5d29fc4613f466074b070e79c0d44178b10da28a.png';
+import openBookImage from '../../../assets/8d689f20c85e4ce4e2c83c02a3bb3e90903829e6.png';
 
 const magazinePages = [
   {
