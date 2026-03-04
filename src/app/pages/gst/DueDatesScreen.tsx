@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
 import { Calendar, Bell, BellOff, ChevronRight } from 'lucide-react';
 
 const dueDates = [
@@ -68,6 +69,7 @@ const dueDates = [
 ];
 
 export default function DueDatesScreen() {
+  const navigate = useNavigate();
   const [reminders, setReminders] = useState(
     dueDates.reduce((acc, item) => {
       acc[item.id] = item.reminder;
@@ -215,7 +217,10 @@ export default function DueDatesScreen() {
           <p className="text-sm text-white/90 mb-4">
             Watch our step-by-step video guides for each return type
           </p>
-          <button className="flex items-center justify-between w-full px-4 py-3 bg-white text-[#2563EB] rounded-xl font-semibold hover:bg-gray-100 transition-colors">
+          <button
+            onClick={() => navigate('/app/gst-tv')}
+            className="flex items-center justify-between w-full px-4 py-3 bg-white text-[#2563EB] rounded-xl font-semibold hover:bg-gray-100 transition-colors active:scale-95"
+          >
             <span>Watch Filing Guides</span>
             <ChevronRight className="w-5 h-5" />
           </button>

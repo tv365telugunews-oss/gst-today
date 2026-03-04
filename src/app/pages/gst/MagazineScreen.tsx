@@ -6,8 +6,8 @@ import {
 } from 'lucide-react';
 
 // Import cover and book images
-import coverImage from "@/assets/39.png";
-import openBookImage from '40.png';
+import coverImage from 'figma:asset/5d29fc4613f466074b070e79c0d44178b10da28a.png';
+import openBookImage from 'figma:asset/8d689f20c85e4ce4e2c83c02a3bb3e90903829e6.png';
 
 const magazinePages = [
   {
@@ -91,6 +91,7 @@ export default function MagazineScreen() {
   const [bookmarkedPages, setBookmarkedPages] = useState<number[]>([0]);
   const [searchOpen, setSearchOpen] = useState(false);
   const [touchStart, setTouchStart] = useState<{ x: number; y: number; time: number } | null>(null);
+  const [pinchStart, setPinchStart] = useState<{ distance: number; zoom: number } | null>(null);
   
   const pageRef = useRef<HTMLDivElement>(null);
   const totalPages = magazinePages.length;
@@ -143,14 +144,47 @@ export default function MagazineScreen() {
   };
 
   const handleTouchStart = (e: React.TouchEvent) => {
-    setTouchStart({
-      x: e.touches[0].clientX,
-      y: e.touches[0].clientY,
-      time: Date.now(),
-    });
+    if (e.touches.length === 2) {
+      // Pinch to zoom
+      const touch1 = e.touches[0];
+      const touch2 = e.touches[1];
+      const distance = Math.hypot(
+        touch2.clientX - touch1.clientX,
+        touch2.clientY - touch1.clientY
+      );
+      setPinchStart({ distance, zoom });
+    } else if (e.touches.length === 1) {
+      // Single touch for swipe
+      setTouchStart({
+        x: e.touches[0].clientX,
+        y: e.touches[0].clientY,
+        time: Date.now(),
+      });
+    }
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (e.touches.length === 2 && pinchStart) {
+      // Handle pinch zoom
+      const touch1 = e.touches[0];
+      const touch2 = e.touches[1];
+      const distance = Math.hypot(
+        touch2.clientX - touch1.clientX,
+        touch2.clientY - touch1.clientY
+      );
+      
+      const scale = distance / pinchStart.distance;
+      const newZoom = Math.min(Math.max(pinchStart.zoom * scale, 1), 3);
+      setZoom(newZoom);
+    }
   };
 
   const handleTouchEnd = (e: React.TouchEvent) => {
+    if (pinchStart) {
+      setPinchStart(null);
+      return;
+    }
+
     if (!touchStart) return;
 
     const touchEnd = {
@@ -164,7 +198,8 @@ export default function MagazineScreen() {
     const deltaTime = touchEnd.time - touchStart.time;
 
     // Swipe detection: horizontal movement > 50px, vertical < 100px, time < 500ms
-    if (Math.abs(deltaX) > 50 && deltaY < 100 && deltaTime < 500) {
+    // Only flip pages when zoom is at 1 (not zoomed in)
+    if (zoom === 1 && Math.abs(deltaX) > 50 && deltaY < 100 && deltaTime < 500) {
       if (deltaX > 0) {
         handleNextPage();
       } else {
@@ -463,8 +498,9 @@ export default function MagazineScreen() {
 
       {/* Page Container */}
       <div 
-        className="flex-1 flex items-center justify-center p-4 relative overflow-hidden"
+        className="flex-1 flex items-center justify-center relative overflow-hidden pb-20"
         onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
         {/* Navigation Arrows */}
@@ -491,12 +527,8 @@ export default function MagazineScreen() {
         {/* Page with Flip Animation */}
         <div
           ref={pageRef}
-          className="relative"
+          className="absolute inset-0 mx-2"
           style={{
-            width: '85vw',
-            maxWidth: '500px',
-            height: '70vh',
-            maxHeight: '700px',
             perspective: '1500px',
           }}
         >
@@ -708,73 +740,6 @@ export default function MagazineScreen() {
           </div>
         )}
       </div>
-
-      {/* Zoom Controls */}
-      <div className={`${cardBg} border-t border-gray-200 dark:border-gray-700 px-4 py-2`}>
-        <div className="flex items-center justify-center space-x-4">
-          <button
-            onClick={() => setZoom(Math.max(0.8, zoom - 0.2))}
-            disabled={zoom <= 0.8}
-            className={`p-2 rounded-lg transition-colors ${
-              zoom <= 0.8 ? 'opacity-30' : 'hover:bg-gray-100 dark:hover:bg-gray-700'
-            }`}
-          >
-            <ZoomOut className={`w-5 h-5 ${textColor}`} />
-          </button>
-
-          <div className="flex items-center space-x-2 min-w-[100px] justify-center">
-            <span className={`text-sm font-medium ${textColor}`}>{Math.round(zoom * 100)}%</span>
-          </div>
-
-          <button
-            onClick={() => setZoom(Math.min(1.5, zoom + 0.2))}
-            disabled={zoom >= 1.5}
-            className={`p-2 rounded-lg transition-colors ${
-              zoom >= 1.5 ? 'opacity-30' : 'hover:bg-gray-100 dark:hover:bg-gray-700'
-            }`}
-          >
-            <ZoomIn className={`w-5 h-5 ${textColor}`} />
-          </button>
-        </div>
-      </div>
-
-      {/* Page Thumbnails */}
-      {showThumbnails && (
-        <div className={`${cardBg} border-t border-gray-200 dark:border-gray-700 px-2 py-3`}>
-          <div className="flex items-center space-x-2 overflow-x-auto scrollbar-hide">
-            {magazinePages.map((page, index) => (
-              <button
-                key={page.id}
-                onClick={() => {
-                  if (index !== currentPage && !isFlipping) {
-                    setIsFlipping(true);
-                    setFlipDirection(index > currentPage ? 'next' : 'prev');
-                    playPageTurnSound();
-                    setTimeout(() => {
-                      setCurrentPage(index);
-                      setIsFlipping(false);
-                    }, 800);
-                  }
-                }}
-                className={`flex-shrink-0 relative transition-all ${
-                  index === currentPage 
-                    ? 'ring-2 ring-[#E53935] scale-110' 
-                    : 'opacity-60 hover:opacity-100'
-                }`}
-              >
-                <img
-                  src={page.thumbnail}
-                  alt={`Page ${index + 1}`}
-                  className="w-12 h-16 object-cover rounded shadow-md"
-                />
-                {bookmarkedPages.includes(index) && (
-                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-[#E53935] rounded-full"></div>
-                )}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
 
       {/* Table of Contents Modal */}
       {showTOC && (

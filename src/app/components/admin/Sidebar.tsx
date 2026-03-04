@@ -21,7 +21,7 @@ import {
 } from "lucide-react";
 import { AdminView } from "@/app/pages/AdminDashboard";
 import { useAdminAuth } from "@/app/contexts/AdminAuthContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { toast } from "sonner";
 
 interface SidebarProps {

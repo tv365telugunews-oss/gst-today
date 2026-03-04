@@ -14,50 +14,54 @@ import ArticleDetailScreen from './pages/gst/ArticleDetailScreen';
 import DueDatesScreen from './pages/gst/DueDatesScreen';
 import GSTToolsScreen from './pages/gst/GSTToolsScreen';
 import ProfileScreen from './pages/gst/ProfileScreen';
+import NotificationsScreen from './pages/gst/NotificationsScreen';
 import AdminLoginScreen from './pages/admin/AdminLoginScreen';
-import AdminDashboard from './pages/admin/AdminDashboard';
-import ManageArticles from './pages/admin/ManageArticles';
-import ManageVideos from './pages/admin/ManageVideos';
-import ManageUsers from './pages/admin/ManageUsers';
-import ManageAds from './pages/admin/ManageAds';
-import ManageShortNews from './pages/admin/ManageShortNews';
-import Analytics from './pages/admin/Analytics';
+import AdminDashboard from './pages/AdminDashboard';
 import PrivacyPolicy from './pages/legal/PrivacyPolicy';
 import TermsAndConditions from './pages/legal/TermsAndConditions';
 import AccountDeletion from './pages/legal/AccountDeletion';
+import NotFound from './pages/NotFound';
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: <WelcomeScreen />,
+    errorElement: <NotFound />,
   },
   {
     path: '/login',
     element: <LoginScreen />,
+    errorElement: <NotFound />,
   },
   {
     path: '/terms',
     element: <TermsScreen />,
+    errorElement: <NotFound />,
   },
   {
     path: '/setup',
     element: <SetupScreen />,
+    errorElement: <NotFound />,
   },
   {
     path: '/privacy-policy',
     element: <PrivacyPolicy />,
+    errorElement: <NotFound />,
   },
   {
     path: '/terms-and-conditions',
     element: <TermsAndConditions />,
+    errorElement: <NotFound />,
   },
   {
     path: '/account-deletion',
     element: <AccountDeletion />,
+    errorElement: <NotFound />,
   },
   {
     path: '/app',
     element: <Layout />,
+    errorElement: <NotFound />,
     children: [
       { index: true, element: <HomePage /> },
       { path: 'short', element: <ShortNewsScreen /> },
@@ -69,19 +73,20 @@ export const router = createBrowserRouter([
       { path: 'due-dates', element: <DueDatesScreen /> },
       { path: 'tools', element: <GSTToolsScreen /> },
       { path: 'profile', element: <ProfileScreen /> },
+      { path: 'notifications', element: <NotificationsScreen /> },
     ],
   },
   {
     path: '/admin',
+    errorElement: <NotFound />,
     children: [
+      { index: true, element: <AdminLoginScreen /> },
       { path: 'login', element: <AdminLoginScreen /> },
       { path: 'dashboard', element: <AdminDashboard /> },
-      { path: 'ads', element: <ManageAds /> },
-      { path: 'short-news', element: <ManageShortNews /> },
-      { path: 'articles', element: <ManageArticles /> },
-      { path: 'videos', element: <ManageVideos /> },
-      { path: 'users', element: <ManageUsers /> },
-      { path: 'analytics', element: <Analytics /> },
     ],
+  },
+  {
+    path: '*',
+    element: <NotFound />,
   },
 ]);

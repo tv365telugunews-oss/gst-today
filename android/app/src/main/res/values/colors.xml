@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- NEWS ROBO Brand Colors -->
+    <color name="news_robo_red">#D32F2F</color>
+    <color name="news_robo_dark_red">#B71C1C</color>
+    <color name="news_robo_black">#212121</color>
+    <color name="news_robo_background">#F5F5F5</color>
+    <color name="news_robo_highlight">#FFC107</color>
+    
+    <!-- Standard Colors -->
+    <color name="colorPrimary">#D32F2F</color>
+    <color name="colorPrimaryDark">#B71C1C</color>
+    <color name="colorAccent">#FFC107</color>
+    
+    <!-- Status Bar -->
+    <color name="statusBarColor">#D32F2F</color>
+    
+    <!-- Background -->
+    <color name="backgroundColor">#F5F5F5</color>
+    
+    <!-- Text -->
+    <color name="textColorPrimary">#212121</color>
+    <color name="textColorSecondary">#757575</color>
+    
+    <!-- Common -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+</resources>

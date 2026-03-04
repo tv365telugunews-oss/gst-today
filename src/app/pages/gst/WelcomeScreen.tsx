@@ -33,11 +33,11 @@ export default function WelcomeScreen() {
           <h1 
             className="text-7xl font-black uppercase mb-2 animate-fade-in"
             style={{
-              background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FF6B35 100%)',
+              background: 'linear-gradient(135deg, #1976D2 0%, #2196F3 50%, #64B5F6 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
-              textShadow: '4px 4px 8px rgba(229, 57, 53, 0.3)',
-              filter: 'drop-shadow(2px 2px 4px rgba(229, 57, 53, 0.2))',
+              textShadow: '4px 4px 8px rgba(25, 118, 210, 0.3)',
+              filter: 'drop-shadow(2px 2px 4px rgba(25, 118, 210, 0.2))',
             }}
           >
             WELCOME
