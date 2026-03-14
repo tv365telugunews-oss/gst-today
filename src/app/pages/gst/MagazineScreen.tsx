@@ -1,13 +1,12 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { 
-  X, BookOpen, ChevronLeft, ChevronRight, ZoomIn, ZoomOut, 
+  X, BookOpen, ChevronLeft, ChevronRight, ZoomIn,
   Menu, Search, Bookmark, Settings, Home, Moon, Sun,
-  Grid, List, BookmarkCheck
+  Grid, BookmarkCheck
 } from 'lucide-react';
 
 // Import cover and book images
 import coverImage from '../../../assets/5d29fc4613f466074b070e79c0d44178b10da28a.png';
-import openBookImage from '../../../assets/8d689f20c85e4ce4e2c83c02a3bb3e90903829e6.png';
 
 const magazinePages = [
   {
