@@ -197,7 +197,7 @@ export function VerticalNewsFeed() {
           <motion.div
             key={currentNews.id}
             custom={direction}
-            variants={slideVariants}
+            variants={slideVariants as any}
             initial="enter"
             animate="center"
             exit="exit"

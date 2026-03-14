@@ -230,7 +230,7 @@ export function ProfileMenu({
                       <span className="text-[#212121] font-semibold text-base">
                         {section.title}
                       </span>
-                      {section.adminOnly && (
+                      {!!(section as { adminOnly?: boolean }).adminOnly && (
                         <span className="text-[9px] bg-[#FFC107] text-[#212121] px-1.5 py-0.5 rounded-full font-bold">
                           ADMIN
                         </span>

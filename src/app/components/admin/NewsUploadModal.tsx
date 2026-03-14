@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Camera, Video, X, MapPin, CheckCircle2, Image as ImageIcon, Send } from "lucide-react";
+import { Camera, Video, X, MapPin, CheckCircle2, Image as ImageIcon, Send, FileImage, Film, PlayCircle, Images, DollarSign, BookOpen, FileText } from "lucide-react";
 import { toast } from "sonner";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/app/components/ui/select";
 
@@ -9,13 +9,78 @@ interface NewsUploadModalProps {
 }
 
 const steps = [
-  { step: 1, title: "Upload Media" },
-  { step: 2, title: "Add Details" },
-  { step: 3, title: "Review & Publish" },
+  { step: 1, title: "Select Type" },
+  { step: 2, title: "Upload Media" },
+  { step: 3, title: "Add Details" },
+  { step: 4, title: "Review & Publish" },
+];
+
+const contentTypes = [
+  {
+    id: "standard",
+    name: "Standard",
+    subtitle: "Image/Video + Text",
+    icon: FileImage,
+    color: "from-red-50 to-pink-50",
+    borderColor: "border-red-200",
+    iconColor: "text-red-500",
+    description: "Image or video with text description (42% media, 52% text)"
+  },
+  {
+    id: "video-text",
+    name: "Video + Text",
+    subtitle: "Video with text",
+    icon: Film,
+    color: "from-blue-50 to-blue-50",
+    borderColor: "border-gray-200",
+    iconColor: "text-red-500",
+    description: "Video content with accompanying text description"
+  },
+  {
+    id: "full-video",
+    name: "Full Video",
+    subtitle: "100% Video",
+    icon: PlayCircle,
+    color: "from-gray-50 to-gray-50",
+    borderColor: "border-gray-200",
+    iconColor: "text-red-500",
+    description: "Full screen video content without text"
+  },
+  {
+    id: "photo-gallery",
+    name: "Photo Gallery",
+    subtitle: "Up to 8 photos",
+    icon: Images,
+    color: "from-gray-50 to-gray-50",
+    borderColor: "border-gray-200",
+    iconColor: "text-red-500",
+    description: "Multiple images in a gallery format"
+  },
+  {
+    id: "sponsored-ad",
+    name: "Sponsored Ad",
+    subtitle: "Full screen ad",
+    icon: DollarSign,
+    color: "from-gray-50 to-gray-50",
+    borderColor: "border-gray-200",
+    iconColor: "text-yellow-500",
+    description: "Sponsored advertisement content"
+  },
+  {
+    id: "ebook",
+    name: "E-book",
+    subtitle: "Digital e-book",
+    icon: BookOpen,
+    color: "from-gray-50 to-gray-50",
+    borderColor: "border-gray-200",
+    iconColor: "text-red-500",
+    description: "Digital book or magazine content"
+  },
 ];
 
 export function NewsUploadModal({ isOpen, onClose }: NewsUploadModalProps) {
   const [currentStep, setCurrentStep] = useState(1);
+  const [selectedContentType, setSelectedContentType] = useState("standard");
   const [mediaFiles, setMediaFiles] = useState<File[]>([]);
   const [formData, setFormData] = useState({
     title: "",
@@ -41,11 +106,15 @@ export function NewsUploadModal({ isOpen, onClose }: NewsUploadModalProps) {
   };
 
   const handleNext = () => {
-    if (currentStep === 1 && mediaFiles.length === 0) {
+    if (currentStep === 1 && !selectedContentType) {
+      toast.error("Please select a content type");
+      return;
+    }
+    if (currentStep === 2 && mediaFiles.length === 0) {
       toast.error("Please upload at least one photo or video");
       return;
     }
-    if (currentStep === 2) {
+    if (currentStep === 3) {
       if (!formData.title || !formData.description || !formData.location) {
         toast.error("Please fill all required fields");
         return;
@@ -93,11 +162,8 @@ export function NewsUploadModal({ isOpen, onClose }: NewsUploadModalProps) {
 
   return (
     <div className="fixed inset-0 z-[100] bg-black/80 flex items-center justify-center p-4">
-      {/* Backdrop */}
-      <div className="absolute inset-0" onClick={handleClose} />
-
-      {/* Upload Panel */}
-      <div className="relative w-full max-w-4xl bg-white dark:bg-[#1E1E1E] rounded-2xl shadow-2xl max-h-[90vh] flex flex-col animate-in zoom-in-95 duration-300">
+      {/* Upload Panel - relative positioning to be above backdrop */}
+      <div className="relative z-10 w-full max-w-4xl bg-white dark:bg-[#1E1E1E] rounded-2xl shadow-2xl max-h-[90vh] flex flex-col animate-in zoom-in-95 duration-300">
         {/* Header */}
         <div className="bg-gradient-to-r from-[#D32F2F] to-[#B71C1C] text-white px-6 py-5 rounded-t-2xl flex-shrink-0">
           <div className="flex items-center justify-between mb-4">
@@ -141,48 +207,136 @@ export function NewsUploadModal({ isOpen, onClose }: NewsUploadModalProps) {
 
         {/* Content */}
         <div className="flex-1 overflow-y-auto p-6">
-          {/* Step 1: Upload Media */}
+          {/* Step 1: Select Type */}
           {currentStep === 1 && (
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white">Upload Content</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                  Create and publish content with multiple format options
+                </p>
+              </div>
+
+              <div>
+                <h4 className="text-base font-semibold text-gray-900 dark:text-white mb-4">Select Content Type</h4>
+
+                {/* Content Type Grid */}
+                <div className="grid grid-cols-2 gap-4 max-h-[280px] overflow-y-auto pr-2">
+                  {contentTypes.map((type) => {
+                    const Icon = type.icon;
+                    const isSelected = selectedContentType === type.id;
+                    return (
+                      <button
+                        key={type.id}
+                        type="button"
+                        onClick={() => {
+                          setSelectedContentType(type.id);
+                          toast.success(`${type.name} selected`);
+                        }}
+                        className={`relative p-5 rounded-2xl border-2 transition-all hover:scale-105 active:scale-95 ${
+                          isSelected
+                            ? "border-red-400 bg-gradient-to-br from-red-50 to-pink-50 dark:from-red-900/30 dark:to-pink-900/30 dark:border-red-500"
+                            : "border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 hover:border-red-200 dark:hover:border-red-400"
+                        }`}
+                      >
+                        <div className="flex flex-col items-center justify-center space-y-2">
+                          <Icon className={`h-10 w-10 ${type.iconColor}`} />
+                          <div className="text-center">
+                            <p className="text-sm font-bold text-gray-900 dark:text-white">{type.name}</p>
+                            <p className="text-xs text-gray-600 dark:text-gray-400 mt-0.5">{type.subtitle}</p>
+                          </div>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Scroll Indicator */}
+                <div className="text-center mt-3">
+                  <p className="text-xs text-gray-500">↓ Scroll down to see all 6 options ↓</p>
+                </div>
+              </div>
+
+              {/* Selected Type Description */}
+              {selectedContentType && (
+                <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700">
+                  <p className="text-sm text-gray-700 dark:text-gray-300">
+                    <span className="font-semibold">
+                      {contentTypes.find(t => t.id === selectedContentType)?.name} News:
+                    </span>{" "}
+                    {contentTypes.find(t => t.id === selectedContentType)?.description}
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Step 2: Upload Media */}
+          {currentStep === 2 && (
             <div className="space-y-4">
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white">Upload Photos or Videos</h3>
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+                {selectedContentType === 'ebook' ? 'Upload E-book' : 'Upload Photos or Videos'}
+              </h3>
               <p className="text-sm text-gray-600 dark:text-gray-400">
-                Add media to your news article (required)
+                {selectedContentType === 'ebook' 
+                  ? 'Upload PDF file for your e-book (required)'
+                  : 'Add media to your news article (required)'
+                }
               </p>
 
               {/* Upload Buttons */}
-              <div className="grid grid-cols-2 gap-3">
-                {/* Photo Upload */}
-                <label className="relative group cursor-pointer">
+              {selectedContentType === 'ebook' ? (
+                // E-book PDF Upload
+                <label className="relative group cursor-pointer block">
                   <input
                     type="file"
-                    accept="image/*"
+                    accept=".pdf,application/pdf"
                     onChange={handleMediaChange}
                     className="hidden"
-                    multiple
                   />
-                  <div className="border-2 border-dashed border-blue-300 rounded-2xl p-6 text-center bg-gradient-to-br from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 transition-all group-hover:border-blue-500 group-hover:scale-105">
-                    <Camera className="h-12 w-12 mx-auto mb-2 text-blue-600" />
-                    <p className="text-sm font-bold text-blue-700">Photos</p>
-                    <p className="text-xs text-blue-600 mt-1">JPG, PNG</p>
+                  <div className="border-2 border-dashed border-purple-300 rounded-2xl p-8 text-center bg-gradient-to-br from-purple-50 to-purple-100 hover:from-purple-100 hover:to-purple-200 transition-all group-hover:border-purple-500 group-hover:scale-105">
+                    <FileText className="h-16 w-16 mx-auto mb-3 text-purple-600" />
+                    <p className="text-lg font-bold text-purple-700">Upload PDF E-book</p>
+                    <p className="text-sm text-purple-600 mt-2">Click to select PDF file</p>
+                    <p className="text-xs text-gray-500 mt-2">Supported format: PDF</p>
                   </div>
                 </label>
+              ) : (
+                // Standard Photo/Video Uploads
+                <div className="grid grid-cols-2 gap-3">
+                  {/* Photo Upload */}
+                  <label className="relative group cursor-pointer">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleMediaChange}
+                      className="hidden"
+                      multiple
+                    />
+                    <div className="border-2 border-dashed border-blue-300 rounded-2xl p-6 text-center bg-gradient-to-br from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 transition-all group-hover:border-blue-500 group-hover:scale-105">
+                      <Camera className="h-12 w-12 mx-auto mb-2 text-blue-600" />
+                      <p className="text-sm font-bold text-blue-700">Photos</p>
+                      <p className="text-xs text-blue-600 mt-1">JPG, PNG</p>
+                    </div>
+                  </label>
 
-                {/* Video Upload */}
-                <label className="relative group cursor-pointer">
-                  <input
-                    type="file"
-                    accept="video/*"
-                    onChange={handleMediaChange}
-                    className="hidden"
-                    multiple
-                  />
-                  <div className="border-2 border-dashed border-red-300 rounded-2xl p-6 text-center bg-gradient-to-br from-red-50 to-red-100 hover:from-red-100 hover:to-red-200 transition-all group-hover:border-red-500 group-hover:scale-105">
-                    <Video className="h-12 w-12 mx-auto mb-2 text-red-600" />
-                    <p className="text-sm font-bold text-red-700">Videos</p>
-                    <p className="text-xs text-red-600 mt-1">MP4, MOV</p>
-                  </div>
-                </label>
-              </div>
+                  {/* Video Upload */}
+                  <label className="relative group cursor-pointer">
+                    <input
+                      type="file"
+                      accept="video/*"
+                      onChange={handleMediaChange}
+                      className="hidden"
+                      multiple
+                    />
+                    <div className="border-2 border-dashed border-red-300 rounded-2xl p-6 text-center bg-gradient-to-br from-red-50 to-red-100 hover:from-red-100 hover:to-red-200 transition-all group-hover:border-red-500 group-hover:scale-105">
+                      <Video className="h-12 w-12 mx-auto mb-2 text-red-600" />
+                      <p className="text-sm font-bold text-red-700">Videos</p>
+                      <p className="text-xs text-red-600 mt-1">MP4, MOV</p>
+                    </div>
+                  </label>
+                </div>
+              )}
 
               {/* Selected Files */}
               {mediaFiles.length > 0 && (
@@ -218,8 +372,8 @@ export function NewsUploadModal({ isOpen, onClose }: NewsUploadModalProps) {
             </div>
           )}
 
-          {/* Step 2: Add Details */}
-          {currentStep === 2 && (
+          {/* Step 3: Add Details */}
+          {currentStep === 3 && (
             <div className="space-y-5">
               <h3 className="text-lg font-bold text-gray-900 dark:text-white">Add Article Details</h3>
 
@@ -321,8 +475,8 @@ export function NewsUploadModal({ isOpen, onClose }: NewsUploadModalProps) {
             </div>
           )}
 
-          {/* Step 3: Review & Publish */}
-          {currentStep === 3 && (
+          {/* Step 4: Review & Publish */}
+          {currentStep === 4 && (
             <div className="space-y-5">
               <h3 className="text-lg font-bold text-gray-900 dark:text-white">Review & Publish</h3>
 
@@ -394,7 +548,7 @@ export function NewsUploadModal({ isOpen, onClose }: NewsUploadModalProps) {
             {currentStep === 1 ? "Cancel" : "Back"}
           </button>
 
-          {currentStep < 3 ? (
+          {currentStep < 4 ? (
             <button
               onClick={handleNext}
               className="flex-1 py-3 px-6 bg-[#D32F2F] text-white rounded-xl font-semibold hover:bg-[#B71C1C] transition-colors"

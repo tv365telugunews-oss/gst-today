@@ -104,6 +104,8 @@ Already properly configured:
 4. ✅ **Assets load properly** - Vite config correct
 5. ✅ **Logo doesn't change name** - SVG in /public/
 6. ✅ **No browser console errors** - All dependencies found
+7. ✅ **Auto language translation in one shot** - Added one-click translation with Auto (device language) support in Short News
+8. ✅ **Build error fixed (figma:asset import)** - Replaced unresolved figma imports with local `/src/assets/` imports
 
 ---
 
@@ -322,6 +324,7 @@ npx cap open android
 ✅ Updated manifest.json
 ✅ Fixed index.html icon references
 ✅ Verified vite.config.ts
+✅ Replaced unresolved `figma:asset/...` imports in GST pages with local asset imports
 ✅ All dependencies resolved
 
 ### **Result:**

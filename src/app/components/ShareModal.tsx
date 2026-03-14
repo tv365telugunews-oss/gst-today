@@ -13,6 +13,7 @@ interface ShareModalProps {
 
 export function ShareModal({ isOpen, onClose, title, content, url }: ShareModalProps) {
   if (!isOpen) return null;
+  const canNativeShare = typeof (navigator as Navigator & { share?: Navigator['share'] }).share === 'function';
 
   // Safe copy to clipboard with fallback
   const copyToClipboard = async (text: string) => {
@@ -56,9 +57,9 @@ export function ShareModal({ isOpen, onClose, title, content, url }: ShareModalP
   };
 
   const handleNativeShare = async () => {
-    if (navigator.share) {
+    if (canNativeShare) {
       try {
-        await navigator.share({
+        await (navigator as Navigator & { share: Navigator['share'] }).share({
           title: title,
           text: content.substring(0, 200) + '...',
           url: url || window.location.href,
@@ -147,7 +148,7 @@ export function ShareModal({ isOpen, onClose, title, content, url }: ShareModalP
         </div>
 
         {/* Native Share Button (if supported) */}
-        {navigator.share && (
+        {canNativeShare && (
           <button
             onClick={handleNativeShare}
             className="w-full mb-4 bg-gradient-to-r from-[#D32F2F] to-[#B71C1C] text-white py-4 rounded-xl font-bold hover:shadow-lg transition-all flex items-center justify-center gap-2"

@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router';
 import { Play, Clock, TrendingUp } from 'lucide-react';
 import { useState } from 'react';
+import logoImg from '../../../assets/1a24d26cd66941b78a3f0f37f5bc5291408335be.png';
 
 const categories = [
   'All Videos',
@@ -74,9 +75,12 @@ export default function GSTTVScreen() {
   return (
     <div className="bg-[#F3F4F6] min-h-screen pb-20">
       {/* Header */}
-      <header className="bg-[#E53935] text-white p-4 sticky top-0 z-10 shadow-md">
-        <h1 className="text-xl font-bold">GST TV</h1>
-        <p className="text-xs text-white/90">Watch and Learn GST</p>
+      <header className="bg-[#E53935] text-white p-3 sticky top-0 z-10 shadow-md flex items-center justify-center">
+        <img 
+          src={logoImg} 
+          alt="GST TODAY TV" 
+          className="h-12 w-12 object-contain"
+        />
       </header>
 
       {/* Featured Video */}

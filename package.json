@@ -6,10 +6,9 @@
   "scripts": {
     "build": "vite build",
     "dev": "vite",
-    "start": "node scripts/start-render.mjs",
     "preview": "vite preview",
-    "verify": "node verify-setup.js",
-    "verify:workflow": "node verify-workflow.js",
+    "verify": "node verify-setup.cjs",
+    "verify:workflow": "node verify-workflow.cjs",
     "emergency-fix": "node emergency-fix.cjs",
     "fix-imports": "node fix-all-imports.cjs",
     "diagnostic": "node diagnostic-check.cjs",
@@ -41,9 +40,10 @@
     "workflow:complete": "npm run build && npx cap sync android && npm run netlify:deploy"
   },
   "dependencies": {
-    "@capacitor/android": "^6.2.1",
-    "@capacitor/cli": "^6.2.1",
-    "@capacitor/core": "^6.2.1",
+    "@capacitor/android": "^8.0.2",
+    "@capacitor/cli": "^8.0.2",
+    "@capacitor/core": "^8.0.2",
+    "@capacitor/geolocation": "^8.0.0",
     "@emotion/react": "11.14.0",
     "@emotion/styled": "11.14.1",
     "@mui/icons-material": "7.3.5",
@@ -105,10 +105,11 @@
   },
   "devDependencies": {
     "@tailwindcss/vite": "4.1.12",
+    "@types/prop-types": "^15.7.15",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "4.7.0",
     "baseline-browser-mapping": "latest",
-    "react": "18.3.1",
-    "react-dom": "18.3.1",
     "tailwindcss": "4.1.12",
     "typescript": "^5.7.3",
     "vite": "6.3.5"

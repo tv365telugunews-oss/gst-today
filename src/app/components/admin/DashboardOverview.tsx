@@ -145,10 +145,11 @@ export function DashboardOverview() {
           <h3 className="text-lg font-bold text-[#212121] dark:text-white mb-4">Views & Users (Last 7 Days)</h3>
           <ResponsiveContainer width="100%" height={300}>
             <LineChart data={viewsData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
-              <XAxis dataKey="name" stroke="#666" />
-              <YAxis stroke="#666" />
+              <CartesianGrid key="grid-1" strokeDasharray="3 3" stroke="#e0e0e0" />
+              <XAxis key="xaxis-1" dataKey="name" stroke="#666" />
+              <YAxis key="yaxis-1" stroke="#666" />
               <Tooltip 
+                key="tooltip-1"
                 contentStyle={{ 
                   backgroundColor: '#fff', 
                   border: 'none', 
@@ -156,8 +157,9 @@ export function DashboardOverview() {
                   boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
                 }} 
               />
-              <Legend />
+              <Legend key="legend-1" />
               <Line 
+                key="views-line"
                 type="monotone" 
                 dataKey="views" 
                 stroke="#D32F2F" 
@@ -166,6 +168,7 @@ export function DashboardOverview() {
                 activeDot={{ r: 8 }}
               />
               <Line 
+                key="users-line"
                 type="monotone" 
                 dataKey="users" 
                 stroke="#FFC107" 
@@ -183,6 +186,7 @@ export function DashboardOverview() {
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
               <Pie
+                key="pie-1"
                 data={languageData}
                 cx="50%"
                 cy="50%"
@@ -196,7 +200,7 @@ export function DashboardOverview() {
                   <Cell key={`cell-${index}`} fill={entry.color} />
                 ))}
               </Pie>
-              <Tooltip />
+              <Tooltip key="tooltip-2" />
             </PieChart>
           </ResponsiveContainer>
         </Card>
@@ -209,10 +213,11 @@ export function DashboardOverview() {
           <h3 className="text-lg font-bold text-[#212121] dark:text-white mb-4">Articles by Category</h3>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={categoryData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
-              <XAxis dataKey="category" stroke="#666" angle={-45} textAnchor="end" height={80} />
-              <YAxis stroke="#666" />
+              <CartesianGrid key="grid-2" strokeDasharray="3 3" stroke="#e0e0e0" />
+              <XAxis key="xaxis-2" dataKey="category" stroke="#666" angle={-45} textAnchor="end" height={80} />
+              <YAxis key="yaxis-2" stroke="#666" />
               <Tooltip 
+                key="tooltip-3"
                 contentStyle={{ 
                   backgroundColor: '#fff', 
                   border: 'none', 
@@ -220,7 +225,7 @@ export function DashboardOverview() {
                   boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
                 }} 
               />
-              <Bar dataKey="articles" fill="#D32F2F" radius={[8, 8, 0, 0]} />
+              <Bar key="bar-1" dataKey="articles" fill="#D32F2F" radius={[8, 8, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </Card>

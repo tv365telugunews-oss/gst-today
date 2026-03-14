@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router';
 import { Tv, Newspaper, Calendar, Wrench, Bell, Video, ChevronRight, Gavel, FileText, Scale, LogOut } from 'lucide-react';
+import logoImg from '../../../assets/1a24d26cd66941b78a3f0f37f5bc5291408335be.png';
 
 const categories = ['INDIA', 'GLOBAL', 'Business', 'Markets', 'SUCCESS', 'CHAMBER', 'AWARDS'];
 
@@ -264,12 +265,13 @@ export default function HomePage() {
   return (
     <div className="bg-[#F3F4F6] min-h-screen pb-20">
       {/* Header */}
-      <header className="bg-[#E53935] text-white p-4 sticky top-0 z-10 shadow-md">
+      <header className="bg-[#E53935] text-white p-3 sticky top-0 z-10 shadow-md">
         <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-xl font-bold">GST TODAY TV</h1>
-            <p className="text-xs text-white/90">Your Daily GST Update</p>
-          </div>
+          <img 
+            src={logoImg} 
+            alt="GST TODAY TV" 
+            className="h-12 w-12 object-contain"
+          />
           <button 
             onClick={() => navigate('/app/notifications')}
             className="p-2 hover:bg-white/20 rounded-full transition-colors relative"

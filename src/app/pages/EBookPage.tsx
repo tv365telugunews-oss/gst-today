@@ -73,7 +73,7 @@ export default function EBookPage() {
     setZoom(Math.max(zoom - 25, 50));
   };
 
-  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+  const handleTouchStart = (e: TouchEvent) => {
     if (e.touches.length === 2) {
       const x1 = e.touches[0].clientX;
       const y1 = e.touches[0].clientY;
@@ -85,7 +85,7 @@ export default function EBookPage() {
     }
   };
 
-  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+  const handleTouchMove = (e: TouchEvent) => {
     if (e.touches.length === 2 && touchDistance !== null) {
       const x1 = e.touches[0].clientX;
       const y1 = e.touches[0].clientY;
