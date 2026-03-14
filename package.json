@@ -6,6 +6,7 @@
   "scripts": {
     "build": "vite build",
     "dev": "vite",
+    "start": "node scripts/start-render.mjs",
     "preview": "vite preview",
     "verify": "node verify-setup.js",
     "verify:workflow": "node verify-workflow.js",
