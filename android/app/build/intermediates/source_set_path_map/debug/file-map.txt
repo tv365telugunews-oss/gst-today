@@ -1,0 +1,56 @@
+com.newsrobo.app-transition-1.4.1-0 C:\GradleHome\caches\8.8\transforms\018334947c3337fa43bbbf612969c928\transformed\transition-1.4.1\res
+com.newsrobo.app-activity-1.8.0-1 C:\GradleHome\caches\8.8\transforms\025fec9c4dfe736b7c87caef09f7b18d\transformed\activity-1.8.0\res
+com.newsrobo.app-room-runtime-2.5.0-2 C:\GradleHome\caches\8.8\transforms\0a24ef78e7c1009a93858c8141f8c3bf\transformed\room-runtime-2.5.0\res
+com.newsrobo.app-recyclerview-1.1.0-3 C:\GradleHome\caches\8.8\transforms\0a525ce2a3d9ba8998ab6cfdb2cb6e39\transformed\recyclerview-1.1.0\res
+com.newsrobo.app-play-services-basement-18.2.0-4 C:\GradleHome\caches\8.8\transforms\0baaac38c331ddd3994d037cef65f557\transformed\play-services-basement-18.2.0\res
+com.newsrobo.app-play-services-base-18.1.0-5 C:\GradleHome\caches\8.8\transforms\0cc9000dedd1ad21aec194ceac40033a\transformed\play-services-base-18.1.0\res
+com.newsrobo.app-coordinatorlayout-1.2.0-6 C:\GradleHome\caches\8.8\transforms\13506083821032fcbd18baa0400357f9\transformed\coordinatorlayout-1.2.0\res
+com.newsrobo.app-savedstate-ktx-1.2.1-7 C:\GradleHome\caches\8.8\transforms\1acc6836f7315ebd77ab419e47bee992\transformed\savedstate-ktx-1.2.1\res
+com.newsrobo.app-sqlite-framework-2.3.0-8 C:\GradleHome\caches\8.8\transforms\2157bec639a0f4f9694ecf41a71cdc78\transformed\sqlite-framework-2.3.0\res
+com.newsrobo.app-lifecycle-livedata-2.6.1-9 C:\GradleHome\caches\8.8\transforms\220d5740f7156c2caf97a0c765a15f74\transformed\lifecycle-livedata-2.6.1\res
+com.newsrobo.app-profileinstaller-1.3.0-10 C:\GradleHome\caches\8.8\transforms\2379fb9d6ad3a34ac46782424704d6f7\transformed\profileinstaller-1.3.0\res
+com.newsrobo.app-emoji2-1.2.0-11 C:\GradleHome\caches\8.8\transforms\2641ee3a8cc62f63abf0165fde9ae97e\transformed\emoji2-1.2.0\res
+com.newsrobo.app-emoji2-views-helper-1.2.0-12 C:\GradleHome\caches\8.8\transforms\38179947029bd0ee04a038d4847f6207\transformed\emoji2-views-helper-1.2.0\res
+com.newsrobo.app-lifecycle-process-2.6.1-13 C:\GradleHome\caches\8.8\transforms\3886b7d73c0427e1b24a4fcc4c203412\transformed\lifecycle-process-2.6.1\res
+com.newsrobo.app-sqlite-2.3.0-14 C:\GradleHome\caches\8.8\transforms\38c9181b3ce69cd9a5209f31867ff658\transformed\sqlite-2.3.0\res
+com.newsrobo.app-core-ktx-1.12.0-15 C:\GradleHome\caches\8.8\transforms\4074043cefa7e3630f3b6d5375ddd2df\transformed\core-ktx-1.12.0\res
+com.newsrobo.app-material-1.11.0-16 C:\GradleHome\caches\8.8\transforms\40a1942d49e7b770ea66494435a1ed5a\transformed\material-1.11.0\res
+com.newsrobo.app-core-splashscreen-1.0.1-17 C:\GradleHome\caches\8.8\transforms\44b43bcd94e744e05697a4564f050e7c\transformed\core-splashscreen-1.0.1\res
+com.newsrobo.app-fragment-ktx-1.6.2-18 C:\GradleHome\caches\8.8\transforms\558fef5c3c85488c6b393d550136088a\transformed\fragment-ktx-1.6.2\res
+com.newsrobo.app-activity-ktx-1.8.0-19 C:\GradleHome\caches\8.8\transforms\56e6f7d06aa25e428176703a7c2b1742\transformed\activity-ktx-1.8.0\res
+com.newsrobo.app-lifecycle-viewmodel-ktx-2.6.1-20 C:\GradleHome\caches\8.8\transforms\5b94a505a7b377ff1a1817dede2a2454\transformed\lifecycle-viewmodel-ktx-2.6.1\res
+com.newsrobo.app-webkit-1.9.0-21 C:\GradleHome\caches\8.8\transforms\605de7e94ea1ea80d58e4e73657b6923\transformed\webkit-1.9.0\res
+com.newsrobo.app-savedstate-1.2.1-22 C:\GradleHome\caches\8.8\transforms\646845f5f2e8d7f9ff36037cc105cffe\transformed\savedstate-1.2.1\res
+com.newsrobo.app-slidingpanelayout-1.2.0-23 C:\GradleHome\caches\8.8\transforms\6f234ca31f49360ceb8a0918ee8ec958\transformed\slidingpanelayout-1.2.0\res
+com.newsrobo.app-cardview-1.0.0-24 C:\GradleHome\caches\8.8\transforms\87ab5d3697aadc6a23d383f379c191fc\transformed\cardview-1.0.0\res
+com.newsrobo.app-lifecycle-viewmodel-savedstate-2.6.1-25 C:\GradleHome\caches\8.8\transforms\8aa32529aeebce070aa9d89dc54ad8df\transformed\lifecycle-viewmodel-savedstate-2.6.1\res
+com.newsrobo.app-window-1.0.0-26 C:\GradleHome\caches\8.8\transforms\8f29deaf6d83bc936934ea0779249ab1\transformed\window-1.0.0\res
+com.newsrobo.app-glide-4.16.0-27 C:\GradleHome\caches\8.8\transforms\927be6d4310fd4d3d3c0ab5b3b1bb27a\transformed\glide-4.16.0\res
+com.newsrobo.app-lifecycle-service-2.6.1-28 C:\GradleHome\caches\8.8\transforms\949f80792ad0634b36af26f45d93f9e9\transformed\lifecycle-service-2.6.1\res
+com.newsrobo.app-fragment-1.6.2-29 C:\GradleHome\caches\8.8\transforms\9f86551d322e37765231e5b18043577c\transformed\fragment-1.6.2\res
+com.newsrobo.app-appcompat-resources-1.6.1-30 C:\GradleHome\caches\8.8\transforms\a6e9568dbbcfd21a895cd619ad2d2fe2\transformed\appcompat-resources-1.6.1\res
+com.newsrobo.app-core-1.12.0-31 C:\GradleHome\caches\8.8\transforms\abca296ef1423d726f7552f35e682fb7\transformed\core-1.12.0\res
+com.newsrobo.app-lifecycle-livedata-core-ktx-2.6.1-32 C:\GradleHome\caches\8.8\transforms\b44b1cb5538c8eceda06729a825097aa\transformed\lifecycle-livedata-core-ktx-2.6.1\res
+com.newsrobo.app-play-services-auth-20.7.0-33 C:\GradleHome\caches\8.8\transforms\b67ab49fc2e6675f26bbeffa1b099ad5\transformed\play-services-auth-20.7.0\res
+com.newsrobo.app-drawerlayout-1.1.1-34 C:\GradleHome\caches\8.8\transforms\b9ebf747e30cbf04b2e962ef37b165e1\transformed\drawerlayout-1.1.1\res
+com.newsrobo.app-browser-1.7.0-35 C:\GradleHome\caches\8.8\transforms\beb2d2de872aae3e88a619232d9ced96\transformed\browser-1.7.0\res
+com.newsrobo.app-appcompat-1.6.1-36 C:\GradleHome\caches\8.8\transforms\c951f04fecc77ca272972d3d928b5e21\transformed\appcompat-1.6.1\res
+com.newsrobo.app-lifecycle-viewmodel-2.6.1-37 C:\GradleHome\caches\8.8\transforms\cf93e5ac6e3f85c266a802889c8b3d66\transformed\lifecycle-viewmodel-2.6.1\res
+com.newsrobo.app-startup-runtime-1.1.1-38 C:\GradleHome\caches\8.8\transforms\d52a14d3665b01bb89bb8600dd32b617\transformed\startup-runtime-1.1.1\res
+com.newsrobo.app-lifecycle-runtime-2.6.1-39 C:\GradleHome\caches\8.8\transforms\d5a4719e395c162a4f36c4d37b23a506\transformed\lifecycle-runtime-2.6.1\res
+com.newsrobo.app-work-runtime-2.9.0-40 C:\GradleHome\caches\8.8\transforms\d7e6fa6bf00ede0f3e97103bdc53b551\transformed\work-runtime-2.9.0\res
+com.newsrobo.app-lifecycle-runtime-ktx-2.6.1-41 C:\GradleHome\caches\8.8\transforms\dc6ce9f4e9945c2bd387f88069a9a836\transformed\lifecycle-runtime-ktx-2.6.1\res
+com.newsrobo.app-constraintlayout-2.0.1-42 C:\GradleHome\caches\8.8\transforms\dd0403e916af9a155157189f1d75a037\transformed\constraintlayout-2.0.1\res
+com.newsrobo.app-preference-1.2.1-43 C:\GradleHome\caches\8.8\transforms\e79805211c93cc6ef4bfbf150fd508d5\transformed\preference-1.2.1\res
+com.newsrobo.app-room-ktx-2.5.0-44 C:\GradleHome\caches\8.8\transforms\ea0174c341d9576277921176637f40c3\transformed\room-ktx-2.5.0\res
+com.newsrobo.app-annotation-experimental-1.3.0-45 C:\GradleHome\caches\8.8\transforms\f9b44acd1a82d3baad2d2af5d59e2ef6\transformed\annotation-experimental-1.3.0\res
+com.newsrobo.app-core-runtime-2.2.0-46 C:\GradleHome\caches\8.8\transforms\fa59f939f47931d22b2253eee9baa80d\transformed\core-runtime-2.2.0\res
+com.newsrobo.app-lifecycle-livedata-core-2.6.1-47 C:\GradleHome\caches\8.8\transforms\fcbccc801ff66f60aedcff9e88554ada\transformed\lifecycle-livedata-core-2.6.1\res
+com.newsrobo.app-viewpager2-1.0.0-48 C:\GradleHome\caches\8.8\transforms\fcfda77f090f090bdef06a5d13a960e0\transformed\viewpager2-1.0.0\res
+com.newsrobo.app-resValues-49 C:\Users\MY PC\Desktop\GST\android\app\build\generated\res\resValues\debug
+com.newsrobo.app-packageDebugResources-50 C:\Users\MY PC\Desktop\GST\android\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
+com.newsrobo.app-packageDebugResources-51 C:\Users\MY PC\Desktop\GST\android\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
+com.newsrobo.app-merged_res-52 C:\Users\MY PC\Desktop\GST\android\app\build\intermediates\merged_res\debug
+com.newsrobo.app-debug-53 C:\Users\MY PC\Desktop\GST\android\app\src\debug\res
+com.newsrobo.app-main-54 C:\Users\MY PC\Desktop\GST\android\app\src\main\res
+com.newsrobo.app-packaged_res-55 C:\Users\MY PC\Desktop\GST\node_modules\@capacitor\android\capacitor\build\intermediates\packaged_res\debug

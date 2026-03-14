@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "C:\\GradleHome\\daemon\\8.8\\com.newsrobo.app-merged_res-53:\\xml_file_paths.xml.flat",
+        "source": "C:\\GradleHome\\daemon\\8.8\\com.newsrobo.app-main-55:\\xml\\file_paths.xml"
+    },
+    {
+        "merged": "C:\\GradleHome\\daemon\\8.8\\com.newsrobo.app-merged_res-53:\\xml_config.xml.flat",
+        "source": "C:\\GradleHome\\daemon\\8.8\\com.newsrobo.app-main-55:\\xml\\config.xml"
+    },
+    {
+        "merged": "C:\\GradleHome\\daemon\\8.8\\com.newsrobo.app-merged_res-53:\\layout_activity_main.xml.flat",
+        "source": "C:\\GradleHome\\daemon\\8.8\\com.newsrobo.app-main-55:\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "com.newsrobo.app-merged_res-53:/drawable_splash.xml.flat",
+        "source": "com.newsrobo.app-main-55:/drawable/splash.xml"
+    }
+]
