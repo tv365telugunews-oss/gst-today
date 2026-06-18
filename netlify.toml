@@ -2,9 +2,9 @@
 # Deploy settings and build commands
 
 [build]
-  # Command to build the project
+  # Build from the gst-admin subdirectory
+  base = "gst-admin"
   command = "npm run build"
-  # Directory containing the deployable content
   publish = "dist"
 
 # Redirect all requests to index.html for client-side routing
