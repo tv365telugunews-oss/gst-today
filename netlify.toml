@@ -2,8 +2,6 @@
 # Deploy settings and build commands
 
 [build]
-  # Build from the gst-admin subdirectory
-  base = "gst-admin"
   command = "npm run build"
   publish = "dist"
 
