@@ -1,7 +1,4 @@
 # Netlify Configuration for GST Admin Panel
-# Deploy settings and build commands
-
-# Netlify Configuration for GST Admin Panel
 # Build settings and deployment configuration
 
 [build]
