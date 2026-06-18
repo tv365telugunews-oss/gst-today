@@ -1,0 +1,14 @@
+# Files to ignore during Netlify build
+node_modules
+.git
+.gitignore
+README.md
+.env.local
+.env.*.local
+*.log
+dist
+.vscode
+.idea
+.DS_Store
+*.pem
+*.key
