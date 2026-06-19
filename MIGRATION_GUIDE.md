@@ -1,9 +1,9 @@
-# Migration Guide: BuildingMitra + GST Admin Panel on Netlify
+# Migration Guide: GST TODAY + GST Admin Panel on Netlify
 
 ## Overview
 
 Your project has two main components:
-1. **BuildingMitra** - Android app (stays as is)
+1. **GST TODAY** - Android app (stays as is)
 2. **GST Admin Panel** - Web admin interface (now deploying to Netlify)
 
 This guide explains how they work together and how to deploy the admin panel.
@@ -12,7 +12,7 @@ This guide explains how they work together and how to deploy the admin panel.
 
 ```
 GST/
-├── BuildingMitra/          (Android App - Gradle project)
+├── GST TODAY/          (Android App - Gradle project)
 │   ├── app/
 │   │   └── src/
 │   │       ├── main/       (MainActivity.kt, resources)
@@ -36,14 +36,14 @@ GST/
 
 ### Before (Current)
 ```
-BuildingMitra (Android)
+GST TODAY (Android)
 └── Firebase Backend
     └── Local Storage
 ```
 
 ### After (With Netlify)
 ```
-BuildingMitra (Android) ─┐
+GST TODAY (Android) ─┐
                          ├─→ Firebase Backend
 gst-admin (Netlify) ────┘
 ```
@@ -140,7 +140,7 @@ Example: `admin.yourdomain.com` → Netlify site
 ## Step 5: Connect Android App to Admin Panel
 
 ### Update Firebase Config
-In `BuildingMitra/app/src/firebase.js`:
+In `GST TODAY/app/src/firebase.js`:
 ```javascript
 // Make sure to point to same Firebase project as admin panel
 export const firebaseConfig = {

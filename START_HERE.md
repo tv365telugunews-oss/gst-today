@@ -28,7 +28,7 @@ Your GST Admin Panel has been **completely configured for Netlify deployment** w
 1. **CONFIG_SUMMARY.md** - What was configured (this file)
 2. **NETLIFY_DEPLOYMENT.md** - Complete deployment guide (45+ KB)
 3. **README_NETLIFY.md** - Quick reference guide
-4. **MIGRATION_GUIDE.md** - Integration with BuildingMitra
+4. **MIGRATION_GUIDE.md** - Integration with GST TODAY
 5. **DEPLOYMENT_CHECKLIST.md** - Pre/post deployment tasks
 
 ### 🚀 Helper Files
@@ -181,7 +181,7 @@ HTML files → Cached for 1 hour
 📍 **Need quick reference?**
 → Check: `README_NETLIFY.md`
 
-📍 **Integrating with BuildingMitra?**
+📍 **Integrating with GST TODAY?**
 → Read: `MIGRATION_GUIDE.md`
 
 📍 **About to deploy?**
@@ -209,7 +209,7 @@ HTML files → Cached for 1 hour
 - [ ] Enable monitoring
 
 ### Week 2+
-- [ ] Integrate with BuildingMitra
+- [ ] Integrate with GST TODAY
 - [ ] Set up CI/CD pipeline
 - [ ] Monitor performance
 - [ ] Plan feature updates

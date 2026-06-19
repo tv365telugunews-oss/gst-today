@@ -4,7 +4,7 @@ function Dashboard({ onLogout }) {
       <header className="topbar">
         <div>
           <p className="eyebrow">Admin Dashboard</p>
-          <h1>BuildingMitra Control Center</h1>
+          <h1>GST TODAY Control Center</h1>
         </div>
         <button className="logout-button" type="button" onClick={onLogout}>
           Sign out

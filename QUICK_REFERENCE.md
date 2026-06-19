@@ -8,7 +8,7 @@
 | **CONFIG_SUMMARY.md** | Overview of setup | 📋 Reference |
 | **NETLIFY_DEPLOYMENT.md** | Step-by-step guide | 📖 Read for detailed steps |
 | **README_NETLIFY.md** | Quick commands | ⚡ Quick ref |
-| **MIGRATION_GUIDE.md** | Integration guide | 🔗 For BuildingMitra sync |
+| **MIGRATION_GUIDE.md** | Integration guide | 🔗 For GST TODAY sync |
 | **DEPLOYMENT_CHECKLIST.md** | Pre/post tasks | ✅ Before/after deploy |
 | **ARCHITECTURE.md** | System diagrams | 📊 Visual overview |
 | **netlify.toml** | Netlify config | 🔧 Already set up |

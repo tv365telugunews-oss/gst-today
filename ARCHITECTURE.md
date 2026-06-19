@@ -8,7 +8,7 @@
 │                        Your Project                         │
 ├─────────────────────────┬───────────────────────────────────┤
 │                         │                                   │
-│   BuildingMitra         │    GST Admin Panel                │
+│   GST TODAY         │    GST Admin Panel                │
 │   (Android App)         │    (React - Local Only)           │
 │   ├── MainActivity      │    ├── Login Page                 │
 │   ├── Firebase Config   │    ├── Dashboard                  │
@@ -25,7 +25,7 @@
 │                     Global System (On Internet)                 │
 ├────────────────────────┬──────────────────────────────────────┤
 │                        │                                      │
-│  BuildingMitra         │   GST Admin Panel ✨ NEW            │
+│  GST TODAY         │   GST Admin Panel ✨ NEW            │
 │  (Android App)         │   (Netlify - Live!)                │
 │  ├── MainActivity      │   ├── https://your-site.netlify.app│
 │  ├── Play Store        │   ├── https://admin.yourdomain.com │
@@ -319,7 +319,7 @@ REAL-TIME MONITORING
     └── Edge logs
 ```
 
-## Integration with BuildingMitra
+## Integration with GST TODAY
 
 ```
                     ┌─────────────────────────┐
@@ -340,7 +340,7 @@ REAL-TIME MONITORING
                                  │
                                  │
                     ┌────────────▼────────────┐
-                    │ BuildingMitra App      │
+                    │ GST TODAY App      │
                     │ (Google Play Store)    │
                     │ (Android Devices)      │
                     └────────────────────────┘
@@ -351,7 +351,7 @@ REAL-TIME MONITORING
 ## Summary
 
 ✨ **Your Architecture Now:**
-- BuildingMitra: User mobile app
+- GST TODAY: User mobile app
 - GST Admin Panel: Web dashboard on Netlify
 - Firebase: Shared backend
 - Global CDN: Fast delivery worldwide

@@ -37,7 +37,7 @@
    - Common issues & solutions
    - Next steps for production
 
-6. **MIGRATION_GUIDE.md** ← **Integrating with BuildingMitra**
+6. **MIGRATION_GUIDE.md** ← **Integrating with GST TODAY**
    - How Android app & admin panel work together
    - Firebase configuration
    - Security considerations
@@ -195,7 +195,7 @@ gst-admin/
 3. DEPLOYMENT_CHECKLIST.md (verify setup)
 ```
 
-### 🔗 "How do I integrate with BuildingMitra?"
+### 🔗 "How do I integrate with GST TODAY?"
 ```
 1. MIGRATION_GUIDE.md (integration guide)
 2. ARCHITECTURE.md (system design)
