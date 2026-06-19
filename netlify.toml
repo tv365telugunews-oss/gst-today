@@ -6,7 +6,7 @@
   publish = "dist"
 
 [build.environment]
-  NODE_VERSION = "18.17.0"
+  NODE_VERSION = "22"
   CI = "true"
 
 # Redirect all requests to index.html for client-side routing
