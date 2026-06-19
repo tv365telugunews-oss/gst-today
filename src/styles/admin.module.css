@@ -1,0 +1,24 @@
+.adminLayout { display: flex; min-height: 100vh; }
+.adminSidebar { width: 220px; background: #ffffff; border-right: 1px solid rgba(148,163,184,0.08); padding: 20px; }
+.adminSidebar h3 { margin: 0 0 12px; }
+.navList { display: flex; flex-direction: column; gap: 8px; }
+.navLink { color: #374151; text-decoration: none; padding: 8px 10px; border-radius: 8px; display: inline-flex; align-items: center; gap: 8px }
+.navLink:hover { background: rgba(99,102,241,0.06); color: #111827; }
+.logoutBtn { margin-top: 12px; padding: 8px 10px; border-radius: 8px; border: none; background: #ef4444; color: white; cursor: pointer; }
+.adminMain { flex: 1; padding: 20px; }
+
+@media (max-width: 800px) {
+  .adminSidebar { position: fixed; left: 0; top: 0; bottom: 0; transform: translateX(-100%); transition: transform 240ms ease; z-index: 1000 }
+  .adminSidebar.open { transform: translateX(0) }
+  .adminMain { padding-left: 16px }
+}
+
+/* quick action cards on dashboard */
+.actionGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 12px 0 20px }
+.actionCard { background: #fff; border: 1px solid rgba(148,163,184,0.12); padding: 14px; border-radius: 12px; display: flex; align-items: center; gap: 12px; text-decoration: none; color: #111827 }
+.actionCard:hover { box-shadow: 0 8px 24px rgba(15,23,42,0.06); transform: translateY(-4px); transition: transform 160ms ease, box-shadow 160ms ease }
+.actionIcon { width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; background: rgba(99,102,241,0.08); border-radius: 8px }
+.actionLabel { font-weight: 600 }
+
+@media (max-width: 1000px) { .actionGrid { grid-template-columns: repeat(2, 1fr) } }
+@media (max-width: 600px) { .actionGrid { grid-template-columns: 1fr } .adminSidebar { transform: translateX(-100%) } .adminSidebar.open { transform: translateX(0) } }
